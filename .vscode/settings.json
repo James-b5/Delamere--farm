@@ -1,0 +1,13 @@
+{
+  "files.associations": {
+    "**/prisma/migrations/**/migration.sql": "pgsql"
+  }
+}
+{
+    "docwriter.style": "Doxygen",
+    "docwriter.progress.trackFunctions": true,
+    "docwriter.progress.trackMethods": false,
+    "docwriter.progress.trackClasses": true,
+    "docwriter.progress.trackTypes": true,
+    "docwriter.language": "English"
+}

@@ -1,0 +1,5 @@
+{
+  "version": "0.2",
+  "words": ["Delamere","Nakuru","Delamere-farm","Saanen","subheadline","Sahiwal","dewormed","farmhomepage","Fresian","farmgallery","dairygoat","farmgall","Kiko","Sabelsi","Pesa","M-Pesa","mpesa","Daraja","Safaricom","stkpush","processrequest","toggenburg","kienyeji","Kienyeji","Mwangi","Naivasha","Kamau","Molo","Ochieng","Wanjiku","Gilgil","Njoroge","Njoro","Akinyi","Kuresoi","Formspree","delamerefarm","dfarm","Paystack","paystack","IntaSend","intasend","Inta","PayPal","paypal","probiotic","bulgaricus","thermophilus","cuid","autoincrement","chartjs","pkey","biosecurity"],
+  "ignorePaths": ["node_modules/**",".next/**","build/**","out/**"]
+}

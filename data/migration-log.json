@@ -1,0 +1,2517 @@
+[
+  {
+    "ts": "2026-06-13T17:03:20.304Z",
+    "host": "localhost:3000",
+    "summary": [
+      {
+        "id": "cmq6etnop0004bixv4y7mfzqb",
+        "name": "Layers - Point of Lay Pullets (500 birds)",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq6etnof0002bixv1wyfhx6y",
+        "name": "Friesian Dairy Herd - 5 Cows Package",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq6etnox0006bixvvx82w1b6",
+        "name": "Dairy Goats - Boer Goat Does (5 animals)",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq6etnoc0001bixvud6zyglv",
+        "name": "Angus Beef Cattle - Prime Breeding Stock",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq6etnoj0003bixveyky1cqd",
+        "name": "Broiler Chicks - Day Old (1000 birds)",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq6etnou0005bixv93mglror",
+        "name": "Turkey Poults - Premium Breeding Stock",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq7vngh50004hbn2hsu505xt",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmqch6wou000413qs12j0ymr8",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmqckne1k00001n67k065du3f",
+        "name": "Jersey Dairy Cow - Premium Milk Producer",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq6etnpq000cbixvtosr007n",
+        "name": "Milking Machine - Portable 4-Cow Unit",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq6etnpy000dbixv8dpirhzs",
+        "name": "Water Trough System - Automated 200L",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq6etnq6000fbixvkjl0mjnq",
+        "name": "Farm Consultation Service - Monthly Package",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq6etnq9000gbixv51arzroy",
+        "name": "Veterinary Health Check & Vaccination",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq7vngcw0000hbn2jru2xf2x",
+        "name": "Tomatoes",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq7vngcy0001hbn2p3u6wbik",
+        "name": "Spinach",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq7vnggt0002hbn2hlkho7nr",
+        "name": "Chicken (Broilers)",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq7vnggt0003hbn2sh828qfs",
+        "name": "Goats",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmqch6wn8000013qs8hqbitna",
+        "name": "Tomatoes",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmqch6wn9000113qsergbhp0b",
+        "name": "Spinach",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmqch6wop000213qsi3eaa2q4",
+        "name": "Chicken (Broilers)",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmqch6wop000313qs7arnsks8",
+        "name": "Goats",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmqckne5900051n6730tb6v19",
+        "name": "Turkey Poults - Premium Breeding Stock",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmq6etnnr0000bixvajj98tnn",
+        "name": "Jersey Dairy Cow - Premium Milk Producer",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmqckne6k000d1n67dlod4rt2",
+        "name": "Water Trough System - Automated 200L",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmqckne6u000f1n67g794ufu7",
+        "name": "Farm Consultation Service - Monthly Package",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmqckne6x000g1n67t718pup7",
+        "name": "Veterinary Health Check & Vaccination",
+        "migrated": 0,
+        "skipped": 0
+      },
+      {
+        "id": "cmqckne6c000b1n67o97ebg7b",
+        "name": "Breeding Sows - Gilts (8 animals)",
+        "migrated": 0,
+        "skipped": 1
+      },
+      {
+        "id": "cmq6etnpl000bbixvnnyslnwq",
+        "name": "Breeding Sows - Gilts (8 animals)",
+        "migrated": 0,
+        "skipped": 1
+      },
+      {
+        "id": "cmqckne6p000e1n67zrkcw5md",
+        "name": "Premium Livestock Feed - 50kg Bag (Multiple Types)",
+        "migrated": 0,
+        "skipped": 1
+      },
+      {
+        "id": "cmqckne6g000c1n67ymdcifxp",
+        "name": "Milking Machine - Portable 4-Cow Unit",
+        "migrated": 0,
+        "skipped": 1
+      },
+      {
+        "id": "cmq6etnp80009bixv86e76eu4",
+        "name": "Wool Sheep - Merino Rams (5 animals)",
+        "migrated": 0,
+        "skipped": 1
+      },
+      {
+        "id": "cmqckne6300091n67n46og43i",
+        "name": "Wool Sheep - Merino Rams (5 animals)",
+        "migrated": 0,
+        "skipped": 1
+      },
+      {
+        "id": "cmqckne5k00061n67yodxrn1g",
+        "name": "Dairy Goats - Boer Goat Does (5 animals)",
+        "migrated": 0,
+        "skipped": 2
+      },
+      {
+        "id": "cmqckne4b00021n67rdpuotdj",
+        "name": "Friesian Dairy Herd - 5 Cows Package",
+        "migrated": 0,
+        "skipped": 2
+      },
+      {
+        "id": "cmqckne66000a1n67rb80fkzd",
+        "name": "Meat Pigs - Finishing Porkers (20 animals)",
+        "migrated": 0,
+        "skipped": 2
+      },
+      {
+        "id": "cmq6etnpf000abixv38zaj58k",
+        "name": "Meat Pigs - Finishing Porkers (20 animals)",
+        "migrated": 0,
+        "skipped": 2
+      },
+      {
+        "id": "cmqckne4s00031n677pwey9o9",
+        "name": "Broiler Chicks - Day Old (1000 birds)",
+        "migrated": 0,
+        "skipped": 2
+      },
+      {
+        "id": "cmqckne5q00071n67cc7tzta3",
+        "name": "Meat Goats - Finishing Kids (50 animals)",
+        "migrated": 0,
+        "skipped": 3
+      },
+      {
+        "id": "cmq6etnp10007bixvejgg50ek",
+        "name": "Meat Goats - Finishing Kids (50 animals)",
+        "migrated": 0,
+        "skipped": 3
+      },
+      {
+        "id": "cmqckne4400011n67xzrwk9qo",
+        "name": "Angus Beef Cattle - Prime Breeding Stock",
+        "migrated": 0,
+        "skipped": 3
+      },
+      {
+        "id": "cmqckne5000041n670lr086fd",
+        "name": "Layers - Point of Lay Pullets (500 birds)",
+        "migrated": 0,
+        "skipped": 3
+      },
+      {
+        "id": "cmq6etnp50008bixv1d4j8riq",
+        "name": "Dairy Sheep - Awassi Ewes (10 animals)",
+        "migrated": 0,
+        "skipped": 3
+      },
+      {
+        "id": "cmq6etnq2000ebixv3ha0qddf",
+        "name": "Premium Livestock Feed - 50kg Bag (Multiple Types)",
+        "migrated": 0,
+        "skipped": 1
+      },
+      {
+        "id": "cmqckne5z00081n67b6pyj42z",
+        "name": "Dairy Sheep - Awassi Ewes (10 animals)",
+        "migrated": 0,
+        "skipped": 3
+      }
+    ]
+  },
+  {
+    "ts": "2026-06-13T17:47:34.981Z",
+    "host": "localhost:3000",
+    "summary": [
+      {
+        "id": "cmq6etnop0004bixv4y7mfzqb",
+        "name": "Layers - Point of Lay Pullets (500 birds)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnof0002bixv1wyfhx6y",
+        "name": "Friesian Dairy Herd - 5 Cows Package",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnox0006bixvvx82w1b6",
+        "name": "Dairy Goats - Boer Goat Does (5 animals)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnoc0001bixvud6zyglv",
+        "name": "Angus Beef Cattle - Prime Breeding Stock",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnoj0003bixveyky1cqd",
+        "name": "Broiler Chicks - Day Old (1000 birds)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnou0005bixv93mglror",
+        "name": "Turkey Poults - Premium Breeding Stock",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngh50004hbn2hsu505xt",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqch6wou000413qs12j0ymr8",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqckne1k00001n67k065du3f",
+        "name": "Jersey Dairy Cow - Premium Milk Producer",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnpq000cbixvtosr007n",
+        "name": "Milking Machine - Portable 4-Cow Unit",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnpy000dbixv8dpirhzs",
+        "name": "Water Trough System - Automated 200L",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnq6000fbixvkjl0mjnq",
+        "name": "Farm Consultation Service - Monthly Package",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnq9000gbixv51arzroy",
+        "name": "Veterinary Health Check & Vaccination",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngcw0000hbn2jru2xf2x",
+        "name": "Tomatoes",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngcy0001hbn2p3u6wbik",
+        "name": "Spinach",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vnggt0002hbn2hlkho7nr",
+        "name": "Chicken (Broilers)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vnggt0003hbn2sh828qfs",
+        "name": "Goats",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wn8000013qs8hqbitna",
+        "name": "Tomatoes",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wn9000113qsergbhp0b",
+        "name": "Spinach",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wop000213qsi3eaa2q4",
+        "name": "Chicken (Broilers)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wop000313qs7arnsks8",
+        "name": "Goats",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne5900051n6730tb6v19",
+        "name": "Turkey Poults - Premium Breeding Stock",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnnr0000bixvajj98tnn",
+        "name": "Jersey Dairy Cow - Premium Milk Producer",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne6k000d1n67dlod4rt2",
+        "name": "Water Trough System - Automated 200L",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne6u000f1n67g794ufu7",
+        "name": "Farm Consultation Service - Monthly Package",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne6x000g1n67t718pup7",
+        "name": "Veterinary Health Check & Vaccination",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnp80009bixv86e76eu4",
+        "name": "Wool Sheep - Merino Rams (5 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1563630010-af16cf90154e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4152,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6300091n67n46og43i",
+        "name": "Wool Sheep - Merino Rams (5 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1563630010-af16cf90154e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4211,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6c000b1n67o97ebg7b",
+        "name": "Breeding Sows - Gilts (8 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1599599810694-cb0d0df67ff4?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4279,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnpl000bbixvnnyslnwq",
+        "name": "Breeding Sows - Gilts (8 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1599599810694-cb0d0df67ff4?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4370,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6p000e1n67zrkcw5md",
+        "name": "Premium Livestock Feed - 50kg Bag (Multiple Types)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4446,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6g000c1n67ymdcifxp",
+        "name": "Milking Machine - Portable 4-Cow Unit",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4468,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnq2000ebixv3ha0qddf",
+        "name": "Premium Livestock Feed - 50kg Bag (Multiple Types)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4570,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5k00061n67yodxrn1g",
+        "name": "Dairy Goats - Boer Goat Does (5 animals)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1588089073390-86754b1c3d87?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4498,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1589999921657-5d7b19e0cd4e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2209,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne66000a1n67rb80fkzd",
+        "name": "Meat Pigs - Finishing Porkers (20 animals)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1614504509338-36d56d5fa7a0?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4165,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1598070875829-90fb3e70a73d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2673,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnpf000abixv38zaj58k",
+        "name": "Meat Pigs - Finishing Porkers (20 animals)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1614504509338-36d56d5fa7a0?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4261,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1598070875829-90fb3e70a73d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2743,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne4b00021n67rdpuotdj",
+        "name": "Friesian Dairy Herd - 5 Cows Package",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1484633634112-64e8b2b14cb8?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4675,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1535890822f66a9f26f5ebf99e6e85fe?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2701,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne4s00031n677pwey9o9",
+        "name": "Broiler Chicks - Day Old (1000 birds)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1627873649417-af36141e5b1f?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 5160,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1606214174585-fe31f6c22a3e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3031,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5000041n670lr086fd",
+        "name": "Layers - Point of Lay Pullets (500 birds)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1589999921657-5d7b19e0cd4e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4091,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1554618149-3ba30e1c4643?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2696,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1598070875829-90fb3e70a73d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2170,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnp50008bixv1d4j8riq",
+        "name": "Dairy Sheep - Awassi Ewes (10 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1551013328-e6b610b1d4f4?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3818,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1552747284-5a774fadc13d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2754,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1537747363735-cf133ecc431e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2641,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5z00081n67b6pyj42z",
+        "name": "Dairy Sheep - Awassi Ewes (10 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1551013328-e6b610b1d4f4?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4277,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1552747284-5a774fadc13d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2165,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1537747363735-cf133ecc431e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2714,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5q00071n67cc7tzta3",
+        "name": "Meat Goats - Finishing Kids (50 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1570543886519-bb4dc4b3d882?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4258,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1583307829213-92f0857e243e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2493,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1617589632873-f9c41eb1f893?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2637,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnp10007bixvejgg50ek",
+        "name": "Meat Goats - Finishing Kids (50 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1570543886519-bb4dc4b3d882?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4194,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1583307829213-92f0857e243e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2726,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1617589632873-f9c41eb1f893?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2649,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne4400011n67xzrwk9qo",
+        "name": "Angus Beef Cattle - Prime Breeding Stock",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1612720694546-e62edc87b08d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4508,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1559489676-04b3979b6929?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2749,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1551958219-acbc608c6c4d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2715,
+            "ok": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "ts": "2026-06-13T18:03:34.382Z",
+    "host": "localhost:3000",
+    "summary": [
+      {
+        "id": "cmq6etnop0004bixv4y7mfzqb",
+        "name": "Layers - Point of Lay Pullets (500 birds)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnof0002bixv1wyfhx6y",
+        "name": "Friesian Dairy Herd - 5 Cows Package",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnox0006bixvvx82w1b6",
+        "name": "Dairy Goats - Boer Goat Does (5 animals)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnoc0001bixvud6zyglv",
+        "name": "Angus Beef Cattle - Prime Breeding Stock",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnoj0003bixveyky1cqd",
+        "name": "Broiler Chicks - Day Old (1000 birds)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnou0005bixv93mglror",
+        "name": "Turkey Poults - Premium Breeding Stock",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngh50004hbn2hsu505xt",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqch6wou000413qs12j0ymr8",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqckne1k00001n67k065du3f",
+        "name": "Jersey Dairy Cow - Premium Milk Producer",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnpq000cbixvtosr007n",
+        "name": "Milking Machine - Portable 4-Cow Unit",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnpy000dbixv8dpirhzs",
+        "name": "Water Trough System - Automated 200L",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnq6000fbixvkjl0mjnq",
+        "name": "Farm Consultation Service - Monthly Package",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnq9000gbixv51arzroy",
+        "name": "Veterinary Health Check & Vaccination",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngcw0000hbn2jru2xf2x",
+        "name": "Tomatoes",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngcy0001hbn2p3u6wbik",
+        "name": "Spinach",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vnggt0002hbn2hlkho7nr",
+        "name": "Chicken (Broilers)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vnggt0003hbn2sh828qfs",
+        "name": "Goats",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wn8000013qs8hqbitna",
+        "name": "Tomatoes",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wn9000113qsergbhp0b",
+        "name": "Spinach",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wop000213qsi3eaa2q4",
+        "name": "Chicken (Broilers)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wop000313qs7arnsks8",
+        "name": "Goats",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne5900051n6730tb6v19",
+        "name": "Turkey Poults - Premium Breeding Stock",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnnr0000bixvajj98tnn",
+        "name": "Jersey Dairy Cow - Premium Milk Producer",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne6k000d1n67dlod4rt2",
+        "name": "Water Trough System - Automated 200L",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne6u000f1n67g794ufu7",
+        "name": "Farm Consultation Service - Monthly Package",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne6x000g1n67t718pup7",
+        "name": "Veterinary Health Check & Vaccination",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngh50004hbn2hsu505xt",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqch6wou000413qs12j0ymr8",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqckne6300091n67n46og43i",
+        "name": "Wool Sheep - Merino Rams (5 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1563630010-af16cf90154e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3036,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnp80009bixv86e76eu4",
+        "name": "Wool Sheep - Merino Rams (5 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1563630010-af16cf90154e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3055,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6c000b1n67o97ebg7b",
+        "name": "Breeding Sows - Gilts (8 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1599599810694-cb0d0df67ff4?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3130,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnpl000bbixvnnyslnwq",
+        "name": "Breeding Sows - Gilts (8 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1599599810694-cb0d0df67ff4?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3239,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6p000e1n67zrkcw5md",
+        "name": "Premium Livestock Feed - 50kg Bag (Multiple Types)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3370,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6g000c1n67ymdcifxp",
+        "name": "Milking Machine - Portable 4-Cow Unit",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3373,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnq2000ebixv3ha0qddf",
+        "name": "Premium Livestock Feed - 50kg Bag (Multiple Types)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3506,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5k00061n67yodxrn1g",
+        "name": "Dairy Goats - Boer Goat Does (5 animals)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1588089073390-86754b1c3d87?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3644,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1589999921657-5d7b19e0cd4e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2054,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnpf000abixv38zaj58k",
+        "name": "Meat Pigs - Finishing Porkers (20 animals)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1614504509338-36d56d5fa7a0?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3836,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1598070875829-90fb3e70a73d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2465,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne4s00031n677pwey9o9",
+        "name": "Broiler Chicks - Day Old (1000 birds)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1627873649417-af36141e5b1f?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3405,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1606214174585-fe31f6c22a3e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2919,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne4b00021n67rdpuotdj",
+        "name": "Friesian Dairy Herd - 5 Cows Package",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1484633634112-64e8b2b14cb8?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3706,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1535890822f66a9f26f5ebf99e6e85fe?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2730,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne66000a1n67rb80fkzd",
+        "name": "Meat Pigs - Finishing Porkers (20 animals)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1614504509338-36d56d5fa7a0?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3655,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1598070875829-90fb3e70a73d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2831,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5000041n670lr086fd",
+        "name": "Layers - Point of Lay Pullets (500 birds)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1589999921657-5d7b19e0cd4e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3162,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1554618149-3ba30e1c4643?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3087,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1598070875829-90fb3e70a73d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2093,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnp50008bixv1d4j8riq",
+        "name": "Dairy Sheep - Awassi Ewes (10 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1551013328-e6b610b1d4f4?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3017,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1552747284-5a774fadc13d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2794,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1537747363735-cf133ecc431e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2559,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5z00081n67b6pyj42z",
+        "name": "Dairy Sheep - Awassi Ewes (10 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1551013328-e6b610b1d4f4?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3057,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1552747284-5a774fadc13d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2800,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1537747363735-cf133ecc431e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2671,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne4400011n67xzrwk9qo",
+        "name": "Angus Beef Cattle - Prime Breeding Stock",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1612720694546-e62edc87b08d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3115,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1559489676-04b3979b6929?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2710,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1551958219-acbc608c6c4d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2882,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5q00071n67cc7tzta3",
+        "name": "Meat Goats - Finishing Kids (50 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1570543886519-bb4dc4b3d882?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3275,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1583307829213-92f0857e243e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2794,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1617589632873-f9c41eb1f893?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2749,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnp10007bixvejgg50ek",
+        "name": "Meat Goats - Finishing Kids (50 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1570543886519-bb4dc4b3d882?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 12619,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1583307829213-92f0857e243e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2175,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1617589632873-f9c41eb1f893?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2190,
+            "ok": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "ts": "2026-06-16T13:12:16.794Z",
+    "host": "localhost:3000",
+    "summary": [
+      {
+        "id": "cmq6etnop0004bixv4y7mfzqb",
+        "name": "Layers - Point of Lay Pullets (500 birds)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnof0002bixv1wyfhx6y",
+        "name": "Friesian Dairy Herd - 5 Cows Package",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnox0006bixvvx82w1b6",
+        "name": "Dairy Goats - Boer Goat Does (5 animals)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnoc0001bixvud6zyglv",
+        "name": "Angus Beef Cattle - Prime Breeding Stock",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnoj0003bixveyky1cqd",
+        "name": "Broiler Chicks - Day Old (1000 birds)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnou0005bixv93mglror",
+        "name": "Turkey Poults - Premium Breeding Stock",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngh50004hbn2hsu505xt",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqch6wou000413qs12j0ymr8",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqckne1k00001n67k065du3f",
+        "name": "Jersey Dairy Cow - Premium Milk Producer",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnpq000cbixvtosr007n",
+        "name": "Milking Machine - Portable 4-Cow Unit",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnpy000dbixv8dpirhzs",
+        "name": "Water Trough System - Automated 200L",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnq6000fbixvkjl0mjnq",
+        "name": "Farm Consultation Service - Monthly Package",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnq9000gbixv51arzroy",
+        "name": "Veterinary Health Check & Vaccination",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngcw0000hbn2jru2xf2x",
+        "name": "Tomatoes",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngcy0001hbn2p3u6wbik",
+        "name": "Spinach",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vnggt0002hbn2hlkho7nr",
+        "name": "Chicken (Broilers)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vnggt0003hbn2sh828qfs",
+        "name": "Goats",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wn8000013qs8hqbitna",
+        "name": "Tomatoes",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wn9000113qsergbhp0b",
+        "name": "Spinach",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wop000213qsi3eaa2q4",
+        "name": "Chicken (Broilers)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wop000313qs7arnsks8",
+        "name": "Goats",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne5900051n6730tb6v19",
+        "name": "Turkey Poults - Premium Breeding Stock",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnnr0000bixvajj98tnn",
+        "name": "Jersey Dairy Cow - Premium Milk Producer",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne6k000d1n67dlod4rt2",
+        "name": "Water Trough System - Automated 200L",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne6u000f1n67g794ufu7",
+        "name": "Farm Consultation Service - Monthly Package",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne6x000g1n67t718pup7",
+        "name": "Veterinary Health Check & Vaccination",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqf4yfed0000umoiqh9iw5q5",
+        "name": "Desmo",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngh50004hbn2hsu505xt",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqch6wou000413qs12j0ymr8",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqckne6p000e1n67zrkcw5md",
+        "name": "Premium Livestock Feed - 50kg Bag (Multiple Types)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3001,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6g000c1n67ymdcifxp",
+        "name": "Milking Machine - Portable 4-Cow Unit",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3006,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnq2000ebixv3ha0qddf",
+        "name": "Premium Livestock Feed - 50kg Bag (Multiple Types)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3063,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6c000b1n67o97ebg7b",
+        "name": "Breeding Sows - Gilts (8 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1599599810694-cb0d0df67ff4?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3169,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnp80009bixv86e76eu4",
+        "name": "Wool Sheep - Merino Rams (5 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1563630010-af16cf90154e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3649,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6300091n67n46og43i",
+        "name": "Wool Sheep - Merino Rams (5 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1563630010-af16cf90154e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3669,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5k00061n67yodxrn1g",
+        "name": "Dairy Goats - Boer Goat Does (5 animals)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1588089073390-86754b1c3d87?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3506,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1589999921657-5d7b19e0cd4e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2165,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnpf000abixv38zaj58k",
+        "name": "Meat Pigs - Finishing Porkers (20 animals)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1614504509338-36d56d5fa7a0?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3327,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1598070875829-90fb3e70a73d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2699,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne66000a1n67rb80fkzd",
+        "name": "Meat Pigs - Finishing Porkers (20 animals)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1614504509338-36d56d5fa7a0?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3287,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1598070875829-90fb3e70a73d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2711,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne4b00021n67rdpuotdj",
+        "name": "Friesian Dairy Herd - 5 Cows Package",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1484633634112-64e8b2b14cb8?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3293,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1535890822f66a9f26f5ebf99e6e85fe?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2777,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne4s00031n677pwey9o9",
+        "name": "Broiler Chicks - Day Old (1000 birds)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1627873649417-af36141e5b1f?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3402,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1606214174585-fe31f6c22a3e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3001,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5000041n670lr086fd",
+        "name": "Layers - Point of Lay Pullets (500 birds)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1589999921657-5d7b19e0cd4e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3336,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1554618149-3ba30e1c4643?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2778,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1598070875829-90fb3e70a73d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2142,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5z00081n67b6pyj42z",
+        "name": "Dairy Sheep - Awassi Ewes (10 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1551013328-e6b610b1d4f4?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3514,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1552747284-5a774fadc13d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2603,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1537747363735-cf133ecc431e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2841,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne4400011n67xzrwk9qo",
+        "name": "Angus Beef Cattle - Prime Breeding Stock",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1612720694546-e62edc87b08d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3425,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1559489676-04b3979b6929?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2790,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1551958219-acbc608c6c4d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2796,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnp50008bixv1d4j8riq",
+        "name": "Dairy Sheep - Awassi Ewes (10 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1551013328-e6b610b1d4f4?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3481,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1552747284-5a774fadc13d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2784,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1537747363735-cf133ecc431e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2801,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5q00071n67cc7tzta3",
+        "name": "Meat Goats - Finishing Kids (50 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1570543886519-bb4dc4b3d882?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3307,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1583307829213-92f0857e243e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3176,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1617589632873-f9c41eb1f893?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3030,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnpl000bbixvnnyslnwq",
+        "name": "Breeding Sows - Gilts (8 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1599599810694-cb0d0df67ff4?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 12616,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnp10007bixvejgg50ek",
+        "name": "Meat Goats - Finishing Kids (50 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1570543886519-bb4dc4b3d882?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 12654,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1583307829213-92f0857e243e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2165,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1617589632873-f9c41eb1f893?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 2158,
+            "ok": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "ts": "2026-06-16T13:29:22.615Z",
+    "host": "localhost:3000",
+    "summary": [
+      {
+        "id": "cmq6etnop0004bixv4y7mfzqb",
+        "name": "Layers - Point of Lay Pullets (500 birds)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnof0002bixv1wyfhx6y",
+        "name": "Friesian Dairy Herd - 5 Cows Package",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnox0006bixvvx82w1b6",
+        "name": "Dairy Goats - Boer Goat Does (5 animals)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnoc0001bixvud6zyglv",
+        "name": "Angus Beef Cattle - Prime Breeding Stock",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnoj0003bixveyky1cqd",
+        "name": "Broiler Chicks - Day Old (1000 birds)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnou0005bixv93mglror",
+        "name": "Turkey Poults - Premium Breeding Stock",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngh50004hbn2hsu505xt",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqch6wou000413qs12j0ymr8",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqckne1k00001n67k065du3f",
+        "name": "Jersey Dairy Cow - Premium Milk Producer",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnpq000cbixvtosr007n",
+        "name": "Milking Machine - Portable 4-Cow Unit",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnpy000dbixv8dpirhzs",
+        "name": "Water Trough System - Automated 200L",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnq6000fbixvkjl0mjnq",
+        "name": "Farm Consultation Service - Monthly Package",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnq9000gbixv51arzroy",
+        "name": "Veterinary Health Check & Vaccination",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngcw0000hbn2jru2xf2x",
+        "name": "Tomatoes",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngcy0001hbn2p3u6wbik",
+        "name": "Spinach",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vnggt0002hbn2hlkho7nr",
+        "name": "Chicken (Broilers)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vnggt0003hbn2sh828qfs",
+        "name": "Goats",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wn8000013qs8hqbitna",
+        "name": "Tomatoes",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wn9000113qsergbhp0b",
+        "name": "Spinach",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wop000213qsi3eaa2q4",
+        "name": "Chicken (Broilers)",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqch6wop000313qs7arnsks8",
+        "name": "Goats",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne5900051n6730tb6v19",
+        "name": "Turkey Poults - Premium Breeding Stock",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq6etnnr0000bixvajj98tnn",
+        "name": "Jersey Dairy Cow - Premium Milk Producer",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne6k000d1n67dlod4rt2",
+        "name": "Water Trough System - Automated 200L",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne6u000f1n67g794ufu7",
+        "name": "Farm Consultation Service - Monthly Package",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqckne6x000g1n67t718pup7",
+        "name": "Veterinary Health Check & Vaccination",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqf4yfed0000umoiqh9iw5q5",
+        "name": "Desmo",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmqgoc2ue0000vo60ywvvo75d",
+        "name": "Fresian",
+        "migrated": 0,
+        "skipped": 0,
+        "items": []
+      },
+      {
+        "id": "cmq7vngh50004hbn2hsu505xt",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqch6wou000413qs12j0ymr8",
+        "name": "Farm Overview Video",
+        "migrated": 0,
+        "skipped": 0,
+        "items": [],
+        "error": "Unexpected non-whitespace character after JSON at position 250 (line 13 column 4)"
+      },
+      {
+        "id": "cmqckne6p000e1n67zrkcw5md",
+        "name": "Premium Livestock Feed - 50kg Bag (Multiple Types)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33793,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6g000c1n67ymdcifxp",
+        "name": "Milking Machine - Portable 4-Cow Unit",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33796,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6c000b1n67o97ebg7b",
+        "name": "Breeding Sows - Gilts (8 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1599599810694-cb0d0df67ff4?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33797,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne6300091n67n46og43i",
+        "name": "Wool Sheep - Merino Rams (5 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1563630010-af16cf90154e?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33800,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnq2000ebixv3ha0qddf",
+        "name": "Premium Livestock Feed - 50kg Bag (Multiple Types)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33817,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnpl000bbixvnnyslnwq",
+        "name": "Breeding Sows - Gilts (8 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1599599810694-cb0d0df67ff4?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33818,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnp80009bixv86e76eu4",
+        "name": "Wool Sheep - Merino Rams (5 animals)",
+        "migrated": 0,
+        "skipped": 1,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1563630010-af16cf90154e?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33823,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnpf000abixv38zaj58k",
+        "name": "Meat Pigs - Finishing Porkers (20 animals)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1614504509338-36d56d5fa7a0?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33821,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1598070875829-90fb3e70a73d?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33539,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne4s00031n677pwey9o9",
+        "name": "Broiler Chicks - Day Old (1000 birds)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1627873649417-af36141e5b1f?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33803,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1606214174585-fe31f6c22a3e?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33545,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5k00061n67yodxrn1g",
+        "name": "Dairy Goats - Boer Goat Does (5 animals)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1588089073390-86754b1c3d87?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33801,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1589999921657-5d7b19e0cd4e?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33546,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne66000a1n67rb80fkzd",
+        "name": "Meat Pigs - Finishing Porkers (20 animals)",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1614504509338-36d56d5fa7a0?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33798,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1598070875829-90fb3e70a73d?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33549,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne4b00021n67rdpuotdj",
+        "name": "Friesian Dairy Herd - 5 Cows Package",
+        "migrated": 0,
+        "skipped": 2,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1484633634112-64e8b2b14cb8?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33795,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1535890822f66a9f26f5ebf99e6e85fe?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33551,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5z00081n67b6pyj42z",
+        "name": "Dairy Sheep - Awassi Ewes (10 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1551013328-e6b610b1d4f4?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33803,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1552747284-5a774fadc13d?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33544,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1537747363735-cf133ecc431e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3539,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnp50008bixv1d4j8riq",
+        "name": "Dairy Sheep - Awassi Ewes (10 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1551013328-e6b610b1d4f4?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33833,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1552747284-5a774fadc13d?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33537,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1537747363735-cf133ecc431e?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3607,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5q00071n67cc7tzta3",
+        "name": "Meat Goats - Finishing Kids (50 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1570543886519-bb4dc4b3d882?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33804,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1583307829213-92f0857e243e?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33543,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1617589632873-f9c41eb1f893?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3820,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne5000041n670lr086fd",
+        "name": "Layers - Point of Lay Pullets (500 birds)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1589999921657-5d7b19e0cd4e?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33807,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1554618149-3ba30e1c4643?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33543,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1598070875829-90fb3e70a73d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3876,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmq6etnp10007bixvejgg50ek",
+        "name": "Meat Goats - Finishing Kids (50 animals)",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1570543886519-bb4dc4b3d882?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33822,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1583307829213-92f0857e243e?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33549,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1617589632873-f9c41eb1f893?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 3989,
+            "ok": false
+          }
+        ]
+      },
+      {
+        "id": "cmqckne4400011n67xzrwk9qo",
+        "name": "Angus Beef Cattle - Prime Breeding Stock",
+        "migrated": 0,
+        "skipped": 3,
+        "items": [
+          {
+            "original": "https://images.unsplash.com/photo-1612720694546-e62edc87b08d?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33820,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1559489676-04b3979b6929?w=400&h=300&fit=crop",
+            "error": "fetch failed",
+            "elapsedMs": 33540,
+            "ok": false
+          },
+          {
+            "original": "https://images.unsplash.com/photo-1551958219-acbc608c6c4d?w=400&h=300&fit=crop",
+            "error": "HTTP 404",
+            "elapsedMs": 4255,
+            "ok": false
+          }
+        ]
+      }
+    ]
+  }
+]

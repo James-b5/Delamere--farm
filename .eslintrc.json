@@ -1,0 +1,54 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": { "jsx": true }
+  },
+  "plugins": ["@typescript-eslint", "cypress"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "globals": {
+    "cy": "readonly",
+    "describe": "readonly",
+    "it": "readonly",
+    "expect": "readonly",
+    "page": "readonly"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["cypress/**/*.ts", "cypress/**/*.tsx", "**/*.cy.ts", "**/*.cy.tsx"],
+      "globals": {
+        "cy": "readonly",
+        "Cypress": "readonly",
+        "describe": "readonly",
+        "it": "readonly",
+        "beforeEach": "readonly",
+        "expect": "readonly"
+      }
+    }
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "no-console": "off",
+    "@typescript-eslint/no-require-imports": "off",
+    "no-case-declarations": "off",
+    "no-empty": ["warn", { "allowEmptyCatch": true }],
+    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }]
+  }
+}
