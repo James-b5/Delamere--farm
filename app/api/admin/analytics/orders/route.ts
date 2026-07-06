@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { checkAdminAccess } from '@/lib/api-utils';
-import { Prisma } from '@prisma/client';
 
 export async function GET(req: Request) {
   const user = await checkAdminAccess(req);
@@ -10,12 +9,12 @@ export async function GET(req: Request) {
   }
 
   // PostgreSQL: group orders by date (YYYY-MM-DD)
-  const result = (await prisma.$queryRaw(Prisma.sql`
+  const result = (await prisma.$queryRaw`
     SELECT DATE("createdAt") as date, SUM("totalAmount") as total, COUNT(*) as count
     FROM "Order"
     GROUP BY DATE("createdAt")
     ORDER BY date ASC
-  `)) as Array<{ date: string; total: number; count: number }>;
+  `) as Array<{ date: string; total: number; count: number }>;
 
   return NextResponse.json(result);
 }
