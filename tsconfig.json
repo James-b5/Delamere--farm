@@ -33,5 +33,17 @@
     "**/*.mts",
     "css.d.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "check-duplicates.ts",
+    "verify-database.ts",
+    "playwright.config.ts",
+    "prisma/seed.ts",
+    "prisma/prisma.config.ts",
+    "scripts",
+    "cypress",
+    "playwright",
+    ".next",
+    "test-results"
+  ]
 }

@@ -2,6 +2,13 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+type ProductRecord = {
+  id: string;
+  name: string;
+  price: number;
+  createdAt: Date | null;
+};
+
 async function main() {
   console.log('\n📊 Checking for duplicate products...\n');
 
@@ -9,13 +16,13 @@ async function main() {
   const allProducts = await prisma.product.findMany({
     select: { id: true, name: true, price: true, createdAt: true },
     orderBy: { name: 'asc' }
-  });
+  }) as ProductRecord[];
 
   console.log(`Total products: ${allProducts.length}\n`);
 
   // Group by name
-  const grouped = new Map<string, typeof allProducts>();
-  allProducts.forEach(p => {
+  const grouped = new Map<string, ProductRecord[]>();
+  allProducts.forEach((p: ProductRecord) => {
     if (!grouped.has(p.name)) {
       grouped.set(p.name, []);
     }
