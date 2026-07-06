@@ -4,8 +4,33 @@ import path from 'path';
 
 const prisma = new PrismaClient();
 
+type MigratableProduct = {
+  id: string;
+  name: string;
+  images?: unknown;
+};
+
 function slugify(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function parseImages(images: unknown): string[] {
+  if (Array.isArray(images)) {
+    return images.filter((img): img is string => typeof img === 'string');
+  }
+
+  if (typeof images === 'string') {
+    try {
+      const parsed = JSON.parse(images);
+      if (Array.isArray(parsed)) {
+        return parsed.filter((img): img is string => typeof img === 'string');
+      }
+    } catch {
+      // fall through to empty list
+    }
+  }
+
+  return [];
 }
 
 function getExtFromContentType(ct: string, fallback = '.jpg') {
@@ -99,10 +124,10 @@ export async function POST(req: Request) {
   const summary: any[] = [];
 
   // process products in parallel with limited concurrency
-  await mapWithConcurrency(products, 4, async (p) => {
+  await mapWithConcurrency(products as MigratableProduct[], 4, async (p: MigratableProduct) => {
     const record: any = { id: p.id, name: p.name, migrated: 0, skipped: 0, items: [] };
     try {
-      const imgs: string[] = Array.isArray(p.images) ? p.images : (p.images ? JSON.parse(p.images) : []);
+      const imgs = parseImages(p.images);
       if (!imgs || imgs.length === 0) {
         summary.push(record);
         // update current
