@@ -6,6 +6,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import { Toaster } from "react-hot-toast";
 import ConfirmProvider from '@/components/ConfirmProvider';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 // Using CSS @font-face in globals.css instead of next/font/local
 
 export const viewport: Viewport = {
@@ -156,6 +157,7 @@ export default function RootLayout({
             </ConfirmProvider>
           </CartProvider>
         </AuthProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
