@@ -1,7 +1,15 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { useSession } from 'next-auth/react';
-import { CartItem } from '@prisma/client';
 import axios from 'axios';
+
+type CartItem = {
+  id: string;
+  userId: string;
+  productId: string;
+  quantity?: number;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
+};
 
 type Cart = CartItem[];
 
