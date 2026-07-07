@@ -46,9 +46,9 @@ export default function ProfileDropdown() {
         aria-label="User menu"
       >
         <span className="w-6 h-6 flex items-center justify-center bg-green-700 text-white rounded-full text-xs font-bold shadow-sm">
-          {user?.name?.charAt(0).toUpperCase() || 'U'}
+          {((user.name && user.name.charAt(0)) || user.email?.charAt(0) || 'U').toUpperCase()}
         </span>
-        <span className="max-w-25 truncate">{user?.name || 'User'}</span>
+        <span className="max-w-25 truncate">{user.name || user.email}</span>
         <svg
           className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
           fill="none"

@@ -121,17 +121,27 @@ export default function Cart() {
                     </button>
                     {user ? (
                       <a
-                          href={buildWhatsAppLink("Hello I'd like to inquire about my order")}
-                        target="_blank"
+                        href={buildWhatsAppLink("Hello I'd like to inquire about my order")}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const url = buildWhatsAppLink("Hello I'd like to inquire about my order");
+                          window.open(url, "_blank");
+                          setIsOpen(false);
+                        }}
                         rel="noopener noreferrer"
                         className="py-3 px-4 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors font-bold shadow-md shadow-green-200 text-sm flex items-center justify-center gap-2"
                       >
                         Checkout via WhatsApp
                       </a>
                     ) : (
-                        <a
-                          href={buildWhatsAppLink('Hello I would like to inquire about my order')}
-                        target="_blank"
+                      <a
+                        href={buildWhatsAppLink('Hello I would like to inquire about my order')}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const url = buildWhatsAppLink('Hello I would like to inquire about my order');
+                          window.open(url, "_blank");
+                          setIsOpen(false);
+                        }}
                         rel="noopener noreferrer"
                         className="py-3 px-4 bg-gray-800 text-white rounded-xl hover:bg-gray-900 transition-colors font-bold shadow-md text-sm flex items-center justify-center gap-2"
                       >

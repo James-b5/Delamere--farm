@@ -145,9 +145,9 @@ export default function DashboardPage() {
           {/* Profile Sidebar */}
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-fit">
             <div className="flex items-center justify-center w-24 h-24 bg-green-100 rounded-full mx-auto mb-4 text-green-700 text-3xl font-bold">
-              {user?.name?.charAt(0).toUpperCase() || 'U'}
+              {((user.name && user.name.charAt(0)) || user.email?.charAt(0) || 'U').toUpperCase()}
             </div>
-            <h3 className="text-xl font-bold text-center text-gray-900 mb-1">{user?.name || 'User'}</h3>
+            <h3 className="text-xl font-bold text-center text-gray-900 mb-1">{user.name || user.email}</h3>
             <p className="text-gray-500 text-center mb-6">{user.email}</p>
             
             <div className="border-t pt-4 space-y-3">
@@ -160,9 +160,15 @@ export default function DashboardPage() {
                 {user.address || "No address added"}
               </div>
             </div>
-            <button className="mt-6 w-full bg-gray-100 text-gray-700 py-2 rounded-lg font-semibold hover:bg-gray-200">
+            <Link href="/profile/edit" className="mt-6 w-full block text-center bg-gray-100 text-gray-700 py-2 rounded-lg font-semibold hover:bg-gray-200">
               Edit Profile
-            </button>
+            </Link>
+
+            <div className="mt-3">
+              <a href="tel:+25475141445" className="w-full block text-center bg-white border border-gray-200 text-gray-800 py-2 rounded-lg font-semibold hover:bg-gray-50">
+                Call us: +254 75 141 445
+              </a>
+            </div>
 
             {/* Admin Badge */}
             {(isAdmin || isModerator) && (
