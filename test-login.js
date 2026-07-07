@@ -22,11 +22,12 @@ async function main() {
       console.log('❌ No users found in database!');
       console.log('\n📝 Creating test users...');
       
-      // Test admin password hashing
-      const adminPassword = 'AdminPassword123!';
-      const adminHash = await bcrypt.hash(adminPassword, 10);
-      console.log(`\nAdmin password: ${adminPassword}`);
-      console.log(`Admin hash: ${adminHash}\n`);
+      // Test admin password hashing - read from env to avoid committing secrets
+      const adminPassword = process.env.TEST_ADMIN_PASSWORD || null;
+      if (!adminPassword) {
+        console.warn('No TEST_ADMIN_PASSWORD set; creating user with a generated password. Set TEST_ADMIN_PASSWORD to a known value for predictable tests.');
+      }
+      const adminHash = await bcrypt.hash(adminPassword || Math.random().toString(36).slice(2, 12), 10);
       
       const admin = await prisma.user.create({
         data: {
@@ -40,10 +41,11 @@ async function main() {
       console.log('✅ Created admin user');
       
       // Test moderator password hashing
-      const modPassword = 'ModeratorPassword123!';
-      const modHash = await bcrypt.hash(modPassword, 10);
-      console.log(`\nModerator password: ${modPassword}`);
-      console.log(`Moderator hash: ${modHash}\n`);
+      const modPassword = process.env.TEST_MODERATOR_PASSWORD || null;
+      if (!modPassword) {
+        console.warn('No TEST_MODERATOR_PASSWORD set; creating moderator with a generated password.');
+      }
+      const modHash = await bcrypt.hash(modPassword || Math.random().toString(36).slice(2, 12), 10);
       
       const moderator = await prisma.user.create({
         data: {
@@ -57,10 +59,11 @@ async function main() {
       console.log('✅ Created moderator user (role=OTHER)');
       
       // Create regular user
-      const userPassword = 'UserPassword123!';
-      const userHash = await bcrypt.hash(userPassword, 10);
-      console.log(`\nUser password: ${userPassword}`);
-      console.log(`User hash: ${userHash}\n`);
+      const userPassword = process.env.TEST_USER_PASSWORD || null;
+      if (!userPassword) {
+        console.warn('No TEST_USER_PASSWORD set; creating user with a generated password.');
+      }
+      const userHash = await bcrypt.hash(userPassword || Math.random().toString(36).slice(2, 12), 10);
       
       const regularUser = await prisma.user.create({
         data: {
@@ -93,9 +96,9 @@ async function main() {
       // Test password verification for each user
       console.log('🧪 Testing password verification:\n');
       const testPasswords = {
-        'admin@delamere.com': 'AdminPassword123!',
-        'moderator@delamere.com': 'ModeratorPassword123!',
-        'user@delamere.com': 'UserPassword123!'
+        'admin@delamere.com': process.env.TEST_ADMIN_PASSWORD || null,
+        'moderator@delamere.com': process.env.TEST_MODERATOR_PASSWORD || null,
+        'user@delamere.com': process.env.TEST_USER_PASSWORD || null
       };
       
       for (const [email, password] of Object.entries(testPasswords)) {

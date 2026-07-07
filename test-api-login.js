@@ -1,10 +1,20 @@
 async function testLoginAPI() {
-  const testCases = [
-    { email: 'admin@delamere.com', password: 'AdminPassword123!' },
-    { email: 'moderator@delamere.com', password: 'ModeratorPassword123!' },
-    { email: 'user@delamere.com', password: 'UserPassword123!' },
-    { email: 'admin@delamere.com', password: 'WrongPassword' }
-  ];
+  // Use environment-provided test passwords to avoid committing secrets.
+  const testCases = [];
+  const adminPass = process.env.TEST_ADMIN_PASSWORD;
+  const modPass = process.env.TEST_MODERATOR_PASSWORD;
+  const userPass = process.env.TEST_USER_PASSWORD;
+
+  if (adminPass) testCases.push({ email: 'admin@delamere.com', password: adminPass });
+  if (modPass) testCases.push({ email: 'moderator@delamere.com', password: modPass });
+  if (userPass) testCases.push({ email: 'user@delamere.com', password: userPass });
+  // Add a negative test if admin password is available
+  if (adminPass) testCases.push({ email: 'admin@delamere.com', password: 'WrongPassword' });
+
+  if (testCases.length === 0) {
+    console.warn('No TEST_*_PASSWORD environment variables set. Skipping login API tests.');
+    return;
+  }
 
   console.log('🧪 Testing Login API Endpoint\n');
   

@@ -157,7 +157,7 @@ Server starts: http://localhost:3000
 ### Step 2: Login as Admin
 1. Go to http://localhost:3000/login
 2. Enter email: `admin@example.com`
-3. Enter password: `AdminPassword123!`
+3. Enter password: set via environment variable `TEST_ADMIN_PASSWORD` (do not commit real passwords)
 4. Click "Sign In"
 
 ### Step 3: Access Admin Dashboard

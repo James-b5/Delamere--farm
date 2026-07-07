@@ -16,7 +16,7 @@
 ### Test 1.1: Admin Login
 1. Navigate to http://localhost:3000/login
 2. Enter email: `admin@example.com`
-3. Enter password: `AdminPassword123!`
+3. Enter password: set via environment variable `TEST_ADMIN_PASSWORD` (do not commit real passwords)
 4. Click "Sign In"
 5. **Expected Result:** ✅ Redirected to admin dashboard at http://localhost:3000/admin
 6. **Status:** [ ] Pass / [ ] Fail
