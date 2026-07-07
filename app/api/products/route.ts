@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { withPrismaFallback } from '@/lib/prisma-safe';
-import { serverErrorResponse } from '@/lib/api-utils';
+import { safeJsonParse, serverErrorResponse } from '@/lib/api-utils';
 
 // Public GET: List all products with their media
 export async function GET() {
@@ -17,12 +17,9 @@ export async function GET() {
           price: true,
           stock: true,
           category: true,
-          breed: true,
-          healthStatus: true,
-          ageOrWeight: true,
           images: true,
           videos: true,
-          documents: true,
+          specs: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -33,9 +30,9 @@ export async function GET() {
 
     const formatted = (products as Array<Record<string, any>>).map((p: any) => ({
       ...p,
-      images: p.images ? JSON.parse(p.images) : [],
-      videos: p.videos ? JSON.parse(p.videos) : [],
-      documents: p.documents ? JSON.parse(p.documents) : [],
+      images: safeJsonParse<string[]>(p.images, []),
+      videos: safeJsonParse<string[]>(p.videos, []),
+      specs: safeJsonParse<Record<string, any>>(p.specs, {}),
     }));
 
     return NextResponse.json(formatted);
