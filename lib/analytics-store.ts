@@ -38,24 +38,7 @@ function readEvents(): AnalyticsEvent[] {
     }
   }
 
-  try {
-    const fs = require('fs');
-    const path = require('path');
-    const resolvedPath = path.join(process.cwd(), ANALYTICS_FILE_PATH);
-
-    if (!fs.existsSync(resolvedPath)) {
-      return getInMemoryStore();
-    }
-
-    const raw = fs.readFileSync(resolvedPath, 'utf8');
-    const parsed = JSON.parse(raw);
-    const events = Array.isArray(parsed) ? parsed : [];
-    getInMemoryStore().splice(0, getInMemoryStore().length, ...events);
-    return events;
-  } catch (error) {
-    console.warn('Unable to read analytics events from disk:', error);
-    return getInMemoryStore();
-  }
+  return getInMemoryStore();
 }
 
 function writeEvents(events: AnalyticsEvent[]) {
@@ -66,17 +49,6 @@ function writeEvents(events: AnalyticsEvent[]) {
       console.warn('Unable to write analytics events to browser storage:', error);
     }
     return;
-  }
-
-  try {
-    const fs = require('fs');
-    const path = require('path');
-    const resolvedPath = path.join(process.cwd(), ANALYTICS_FILE_PATH);
-    const dir = path.dirname(resolvedPath);
-    fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(resolvedPath, JSON.stringify(events, null, 2));
-  } catch (error) {
-    console.warn('Unable to write analytics events to disk:', error);
   }
 
   getInMemoryStore().splice(0, getInMemoryStore().length, ...events);

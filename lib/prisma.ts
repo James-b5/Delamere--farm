@@ -29,8 +29,16 @@ function readFallbackStore(): FallbackStore {
 }
 
 function writeFallbackStore(store: FallbackStore) {
-  fs.mkdirSync(path.dirname(FALLBACK_STORE_PATH), { recursive: true });
-  fs.writeFileSync(FALLBACK_STORE_PATH, JSON.stringify(store, null, 2));
+  try {
+    fs.mkdirSync(path.dirname(FALLBACK_STORE_PATH), { recursive: true });
+    fs.writeFileSync(FALLBACK_STORE_PATH, JSON.stringify(store, null, 2));
+  } catch (error: any) {
+    if (error && error.code === 'EROFS') {
+      console.warn('Prisma fallback store write skipped: read-only filesystem', error.message);
+      return;
+    }
+    console.warn('Unable to write Prisma fallback store, skipping:', error);
+  }
 }
 
 function ensureModelStore(store: FallbackStore, model: string) {

@@ -181,6 +181,20 @@ export function badRequestResponse(message: string = 'Bad Request', requestId?: 
   return NextResponse.json(payload, { status: 400 });
 }
 
+export function safeJsonParse<T>(value: unknown, fallback: T): T {
+  try {
+    if (value === null || value === undefined) {
+      return fallback;
+    }
+    if (typeof value === 'string' && value.trim() === '') {
+      return fallback;
+    }
+    return JSON.parse(value as string) as T;
+  } catch {
+    return fallback;
+  }
+}
+
 /**
  * Return server error response
  */
