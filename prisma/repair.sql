@@ -1,6 +1,0 @@
-ALTER TABLE "Product" ADD COLUMN IF NOT EXISTS "category" TEXT;
-ALTER TABLE "Product" ADD COLUMN IF NOT EXISTS "breed" TEXT;
-ALTER TABLE "Product" ADD COLUMN IF NOT EXISTS "healthStatus" TEXT;
-ALTER TABLE "Product" ADD COLUMN IF NOT EXISTS "ageOrWeight" TEXT;
-ALTER TABLE "Product" ADD COLUMN IF NOT EXISTS "documents" TEXT NOT NULL DEFAULT '[]';
-CREATE UNIQUE INDEX IF NOT EXISTS "CartItem_userId_productId_key" ON "CartItem"("userId", "productId");
