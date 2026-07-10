@@ -686,7 +686,7 @@ function createFallbackPrismaProxy(store: FallbackStore) {
   return new Proxy({}, modelHandler as any);
 }
 
-function createPrismaProxy(target: any, fallbackStore: FallbackStore) {
+function createPrismaProxy(target: any) {
   return new Proxy(target, {
     get(targetValue: any, prop: PropertyKey, receiver: any) {
       if (typeof prop === 'symbol' || prop === 'then' || prop === 'inspect') {
@@ -714,13 +714,11 @@ function createPrismaProxy(target: any, fallbackStore: FallbackStore) {
               return original;
             }
 
+            // Do not silently fall back on per-query errors. Let errors propagate so
+            // the application can surface and handle them. The fallback store is
+            // only used when PrismaClient failed to initialize at startup.
             return async (...args: any[]) => {
-              try {
-                return await original(...args);
-              } catch (error) {
-                console.warn(`[prisma-fallback] ${String(prop)}.${String(method)} failed; using local fallback store.`, error);
-                return runFallbackOperation(fallbackStore, String(prop), String(method), args[0]);
-              }
+              return await original(...args);
             };
           },
         });
@@ -752,5 +750,5 @@ try {
   }
 }
 
-export const prisma: any = prismaInstance === fallbackPrisma ? fallbackPrisma : createPrismaProxy(prismaInstance, fallbackStore);
+export const prisma: any = prismaInstance === fallbackPrisma ? fallbackPrisma : createPrismaProxy(prismaInstance);
 export const isPrismaFallback = prismaInstance === fallbackPrisma;

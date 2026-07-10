@@ -16,7 +16,7 @@ interface Product {
 }
 
 export default function GalleryPage() {
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, isModerator } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -51,9 +51,9 @@ export default function GalleryPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-bold text-center mb-8 text-gray-900">Farm Gallery</h1>
         {/* Admin upload (images & videos) */}
-        {isAdmin && (
+        {(isAdmin || isModerator) && (
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">Admin: Upload Media</h2>
+            <h2 className="text-xl font-semibold text-gray-800 mb-3">Admin / Moderator: Upload Media</h2>
             <AdminMediaManager />
           </div>
         )}
@@ -68,9 +68,13 @@ export default function GalleryPage() {
                   key={idx}
                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
                 >
-                  <div className="h-64 relative overflow-hidden">
-                    <Image src={img.src} alt={img.alt} fill className="object-cover" />
-                  </div>
+                      <div className="h-64 relative overflow-hidden">
+                        {img.src && img.src.startsWith('http') ? (
+                          <img src={img.src} alt={img.alt} className="object-cover w-full h-full" />
+                        ) : (
+                          <Image src={img.src} alt={img.alt} fill className="object-cover" />
+                        )}
+                      </div>
                 </div>
               ))}
             </div>

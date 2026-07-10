@@ -7,6 +7,7 @@ import { authenticatedFetch } from "@/lib/fetch-helper";
 import Link from "next/link";
 import AdminPageLayout from '@/components/AdminPageLayout';
 import { Loader } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface Order {
   id: string;
@@ -38,7 +39,7 @@ export default function OrdersPage() {
           setOrders(data);
         }
       } catch (err) {
-        console.error('Failed to fetch orders');
+        console.error('Failed to fetch orders:', err);
       } finally {
         setLoading(false);
       }
@@ -117,6 +118,33 @@ export default function OrdersPage() {
                       <Link href={`/admin/orders/${order.id}`} className="text-green-600 hover:text-green-700 font-medium">
                         View
                       </Link>
+                      {isAdmin && (
+                        <button
+                          onClick={async () => {
+                            if (!confirm('Delete this order? This action cannot be undone.')) return;
+                            try {
+                              const res = await authenticatedFetch('/api/orders', {
+                                method: 'DELETE',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ orderId: order.id }),
+                              });
+                              if (res.ok) {
+                                setOrders((prev) => prev.filter((o) => o.id !== order.id));
+                                toast.success('Order deleted');
+                              } else {
+                                const d = await res.json();
+                                toast.error(d.error || 'Failed to delete');
+                              }
+                            } catch (e) {
+                              console.error(e);
+                              toast.error('Failed to delete order');
+                            }
+                          }}
+                          className="ml-4 text-red-600 hover:text-red-700 font-medium"
+                        >
+                          Delete
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Delamere Farm placeholder image">
+  <rect width="1200" height="800" fill="#f3efe5"/>
+  <rect x="40" y="40" width="1120" height="720" rx="28" fill="#ffffff" stroke="#d8cba7" stroke-width="8"/>
+  <path d="M220 580c45-125 110-220 200-260 40-18 86-27 135-27 95 0 174 30 230 92 43 47 72 92 97 152H220Z" fill="#8ba65a"/>
+  <circle cx="390" cy="260" r="78" fill="#d9ae56"/>
+  <rect x="200" y="620" width="800" height="56" rx="28" fill="#6f8b3b"/>
+  <text x="600" y="715" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" fill="#4d4d4d">Delamere Farm</text>
+</svg>

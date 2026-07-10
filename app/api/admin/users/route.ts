@@ -11,7 +11,17 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    const isModeratorRequest = user?.role === 'MODERATOR';
+    const where = isModeratorRequest
+      ? {
+          role: {
+            notIn: ['ADMIN'],
+          },
+        }
+      : {};
+
     const users = await prisma.user.findMany({
+      where,
       select: {
         id: true,
         name: true,
@@ -37,7 +47,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   try {
-    const { name, email, role, isActive } = await req.json();
+    const { name, email, role: incomingRole, isActive } = await req.json();
+    // Normalize legacy 'OTHER' to 'MODERATOR' so admin selections wire correctly
+    const role = incomingRole === 'OTHER' ? 'MODERATOR' : incomingRole;
     if (!email || !role) {
       return badRequestResponse('Email and role are required');
     }

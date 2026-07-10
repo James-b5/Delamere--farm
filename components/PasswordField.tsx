@@ -34,12 +34,12 @@ export default function PasswordField({ id = 'password', value, onChange, placeh
       <div className="relative">
         <input
           id={id}
-          name={name}
+          name={name || 'password'}
           type={showPassword ? 'text' : 'password'}
           autoComplete="current-password"
           required={required}
           title="Password"
-          placeholder="••••••••"
+          placeholder={placeholder}
           value={value}
           onChange={onChange}
           onFocus={() => setFocused(true)}

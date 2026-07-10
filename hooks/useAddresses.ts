@@ -14,32 +14,35 @@ export function useAddresses() {
   const [addresses, setAddresses] = useState<Address[]>([]);
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        const token = typeof window !== 'undefined' ? window.localStorage.getItem('auth_token') : null;
-        if (token) {
-          const res = await fetch('/api/user/addresses');
-          if (res.ok) {
-            const data = await res.json();
-            setAddresses(data || []);
-            window.localStorage.setItem('addresses', JSON.stringify(data || []));
-            return;
+      const load = async () => {
+        try {
+          const token = typeof window !== 'undefined' ? window.localStorage.getItem('auth_token') : null;
+          if (token) {
+            // use authenticatedFetch so Authorization header is included
+            // import dynamically to avoid circular deps in some environments
+            const { authenticatedFetch } = await import('@/lib/fetch-helper');
+            const res = await authenticatedFetch('/api/user/addresses');
+            if (res.ok) {
+              const data = await res.json();
+              setAddresses(data || []);
+              window.localStorage.setItem('addresses', JSON.stringify(data || []));
+              return;
+            }
           }
+        } catch (e) {
+          // ignore
         }
-      } catch (e) {
-        // ignore
-      }
 
-      try {
-        const raw = typeof window !== 'undefined' && window.localStorage.getItem('addresses');
-        if (raw) setAddresses(JSON.parse(raw));
-      } catch (e) {}
-    };
-    load();
-  }, []);
+        try {
+          const raw = typeof window !== 'undefined' && window.localStorage.getItem('addresses');
+          if (raw) setAddresses(JSON.parse(raw));
+        } catch (e) {}
+      };
+      load();
+    }, []);
 
   useEffect(() => {
-    const handler = (e: StorageEvent) => {
+    const storageHandler = (e: StorageEvent) => {
       if (e.key === 'addresses') {
         try {
           const parsed = e.newValue ? JSON.parse(e.newValue) : [];
@@ -48,15 +51,44 @@ export function useAddresses() {
         } catch (err) {}
       }
     };
-    if (typeof window !== 'undefined') window.addEventListener('storage', handler);
-    return () => { if (typeof window !== 'undefined') window.removeEventListener('storage', handler); };
+
+    // when auth changes (login) reload addresses
+    const authHandler = () => {
+      // re-run the load logic
+      (async () => {
+        try {
+          const { authenticatedFetch } = await import('@/lib/fetch-helper');
+          const res = await authenticatedFetch('/api/user/addresses');
+          if (res.ok) {
+            const data = await res.json();
+            setAddresses(data || []);
+            window.localStorage.setItem('addresses', JSON.stringify(data || []));
+            toast('Addresses loaded');
+          }
+        } catch (e) {
+          // ignore
+        }
+      })();
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('storage', storageHandler);
+      window.addEventListener('auth:updated', authHandler as EventListener);
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('storage', storageHandler);
+        window.removeEventListener('auth:updated', authHandler as EventListener);
+      }
+    };
   }, []);
 
   const add = useCallback(async (label: string, addressText: string) => {
     try {
       const token = typeof window !== 'undefined' ? window.localStorage.getItem('auth_token') : null;
       if (token) {
-        const res = await fetch('/api/user/addresses', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ label, address: addressText }) });
+        const { authenticatedFetch } = await import('@/lib/fetch-helper');
+        const res = await authenticatedFetch('/api/user/addresses', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ label, address: addressText }) });
         if (res.ok) {
           const created = await res.json();
           setAddresses(prev => [created, ...prev]);
@@ -79,7 +111,8 @@ export function useAddresses() {
     try {
       const token = typeof window !== 'undefined' ? window.localStorage.getItem('auth_token') : null;
       if (token) {
-        const res = await fetch('/api/user/addresses', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        const { authenticatedFetch } = await import('@/lib/fetch-helper');
+        const res = await authenticatedFetch('/api/user/addresses', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         if (res.ok) {
           const updated = await res.json();
           setAddresses(prev => prev.map(a => a.id === updated.id ? updated : a));
@@ -100,7 +133,8 @@ export function useAddresses() {
     try {
       const token = typeof window !== 'undefined' ? window.localStorage.getItem('auth_token') : null;
       if (token) {
-        const res = await fetch(`/api/user/addresses?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+        const { authenticatedFetch } = await import('@/lib/fetch-helper');
+        const res = await authenticatedFetch(`/api/user/addresses?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
         if (res.ok) {
           setAddresses(prev => prev.filter(a => a.id !== id));
           const newArr = addresses.filter(a => a.id !== id);
@@ -127,7 +161,8 @@ export function useAddresses() {
     try {
       const token = typeof window !== 'undefined' ? window.localStorage.getItem('auth_token') : null;
       if (token) {
-        await Promise.all(copy.map((a, idx) => fetch('/api/user/addresses', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: a.id, order: idx }) })));
+        const { authenticatedFetch } = await import('@/lib/fetch-helper');
+        await Promise.all(copy.map((a, idx) => authenticatedFetch('/api/user/addresses', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: a.id, order: idx }) })));
       }
     } catch (e) {}
   }, [addresses]);

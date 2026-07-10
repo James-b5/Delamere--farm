@@ -15,7 +15,8 @@ type MediaItem = {
 };
 
 export default function AdminMediaManager() {
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, isModerator } = useAuth();
+  const isAuthorized = Boolean(isAdmin || isModerator);
   const [items, setItems] = useState<MediaItem[]>([]);
   const [file, setFile] = useState<File | null>(null);
   const [type, setType] = useState("IMAGE");
@@ -32,10 +33,10 @@ export default function AdminMediaManager() {
 
   // Explicit role-based access control
   useEffect(() => {
-    if (user && !isAdmin) {
-      toast.error('Unauthorized: Admin access required');
+    if (user && !isAuthorized) {
+      toast.error('Unauthorized: Admin or Moderator access required');
     }
-  }, [user, isAdmin]);
+  }, [user, isAuthorized]);
 
   async function load() {
     const res = await fetch('/api/admin/media');
@@ -47,8 +48,8 @@ export default function AdminMediaManager() {
 
   async function handleUpload(e: React.FormEvent) {
     e.preventDefault();
-    if (!isAdmin) {
-      toast.error('Only admins can upload media');
+    if (!isAuthorized) {
+      toast.error('Only admins or moderators can upload media');
       return;
     }
     if (!file) { toast.error('Select a file'); return; }
@@ -93,8 +94,8 @@ export default function AdminMediaManager() {
   }
 
   async function handleDelete(id: number) {
-    if (!isAdmin) {
-      toast.error('Only admins can delete media');
+    if (!isAuthorized) {
+      toast.error('Only admins or moderators can delete media');
       return;
     }
     const ok = await confirm('Delete this media item?');
@@ -121,8 +122,8 @@ export default function AdminMediaManager() {
   }
 
   async function saveEdit(id: number) {
-    if (!isAdmin) {
-      toast.error('Only admins can edit media');
+    if (!isAuthorized) {
+      toast.error('Only admins or moderators can edit media');
       return;
     }
     const errors: string[] = [];
@@ -160,7 +161,7 @@ export default function AdminMediaManager() {
         if (previous) setItems(prev => prev.map(i => i.id === previous!.id ? previous! : i));
         toast.error(err?.error || 'Update failed');
       }
-    } catch (err) {
+    } catch {
       if (previous) setItems(prev => prev.map(i => i.id === previous!.id ? previous! : i));
       toast.error('Update failed');
     }
@@ -168,24 +169,24 @@ export default function AdminMediaManager() {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleUpload} className={`p-4 border rounded ${!isAdmin ? 'opacity-50 pointer-events-none' : ''}`}>
+      <form onSubmit={handleUpload} className={`p-4 border rounded ${!isAuthorized ? 'opacity-50 pointer-events-none' : ''}`}>
         <div className="flex gap-2">
           <label htmlFor="media-type" className="sr-only">Media type</label>
-          <select id="media-type" value={type} onChange={e=>setType(e.target.value)} className="border p-2" aria-label="Media type" disabled={!isAdmin}>
+          <select id="media-type" value={type} onChange={e=>setType(e.target.value)} className="border p-2" aria-label="Media type" disabled={!isAuthorized}>
             <option value="IMAGE">Image</option>
             <option value="VIDEO">Video</option>
           </select>
 
           <label htmlFor="media-title" className="sr-only">Title</label>
-          <input id="media-title" placeholder="Title" value={title} onChange={e=>setTitle(e.target.value)} className="border p-2 flex-1" disabled={!isAdmin} />
+          <input id="media-title" placeholder="Title" value={title} onChange={e=>setTitle(e.target.value)} className="border p-2 flex-1" disabled={!isAuthorized} />
 
           <label htmlFor="media-desc" className="sr-only">Description</label>
-          <input id="media-desc" placeholder="Description" value={description} onChange={e=>setDescription(e.target.value)} className="border p-2 flex-1" disabled={!isAdmin} />
+          <input id="media-desc" placeholder="Description" value={description} onChange={e=>setDescription(e.target.value)} className="border p-2 flex-1" disabled={!isAuthorized} />
 
           <label htmlFor="media-file" className="sr-only">Choose file</label>
-          <input id="media-file" type="file" aria-label="Choose media file" accept="image/*,video/*" onChange={e=>setFile(e.target.files?.[0] ?? null)} disabled={!isAdmin} />
+          <input id="media-file" type="file" aria-label="Choose media file" accept="image/*,video/*" onChange={e=>setFile(e.target.files?.[0] ?? null)} disabled={!isAuthorized} />
 
-          <button className="btn bg-green-600 text-white px-4 py-2 disabled:opacity-50" type="submit" disabled={!isAdmin}>Upload</button>
+          <button className="btn bg-green-600 text-white px-4 py-2 disabled:opacity-50" type="submit" disabled={!isAuthorized}>Upload</button>
         </div>
       </form>
 
@@ -205,15 +206,15 @@ export default function AdminMediaManager() {
               <div className="flex gap-2">
                 <button 
                   onClick={()=>startEdit(i)} 
-                  className={`text-blue-600 ${!isAdmin ? 'opacity-50 cursor-not-allowed' : 'hover:underline'}`}
-                  disabled={!isAdmin}
+                  className={`text-blue-600 ${!isAuthorized ? 'opacity-50 cursor-not-allowed' : 'hover:underline'}`}
+                  disabled={!isAuthorized}
                 >
                   Edit
                 </button>
                 <button 
                   onClick={()=>handleDelete(i.id)} 
-                  className={`text-red-600 ${!isAdmin ? 'opacity-50 cursor-not-allowed' : 'hover:underline'}`}
-                  disabled={!isAdmin}
+                  className={`text-red-600 ${!isAuthorized ? 'opacity-50 cursor-not-allowed' : 'hover:underline'}`}
+                  disabled={!isAuthorized}
                 >
                   Delete
                 </button>

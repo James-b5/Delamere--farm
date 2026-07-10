@@ -65,6 +65,7 @@ export default function ContactPage() {
         });
       }
     } catch (error) {
+      console.error('Contact form submit failed:', error);
       setSubmitStatus({
         success: false,
         message: "An error occurred. Please try again later.",
@@ -221,19 +222,26 @@ export default function ContactPage() {
                   <div className="text-2xl mr-4">📱</div>
                   <div>
                     <h3 className="font-semibold text-gray-900">Phone / WhatsApp</h3>
-                    <a 
+                    <a
                       href={whatsappHref}
                       className="text-green-700 hover:text-green-800"
                     >
-                      +254 7XX XXX XXX
+                      0751741445
                     </a>
+                    <div>
+                      <a href={`tel:0751741445`} className="text-gray-600 hover:text-gray-800">
+                        Call: 0751741445
+                      </a>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <div className="text-2xl mr-4">✉️</div>
                   <div>
                     <h3 className="font-semibold text-gray-900">Email</h3>
-                    <p className="text-gray-600">info@delamerefarm.co.ke</p>
+                    <a href={`mailto:delameredairyfarm254@gmail.com`} className="text-gray-600 hover:text-gray-800">
+                      delameredairyfarm254@gmail.com
+                    </a>
                   </div>
                 </div>
               </div>

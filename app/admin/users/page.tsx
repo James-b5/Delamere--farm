@@ -190,13 +190,12 @@ export default function AdminUsersPage() {
                       <label htmlFor={`role-select-${u.id}`} className="sr-only">User role for {u.name}</label>
                       <select
                         id={`role-select-${u.id}`}
-                        value={u.role}
+                        value={u.role === 'OTHER' ? 'MODERATOR' : u.role}
                         onChange={e => updateUser(u.id, { role: e.target.value })}
                         className="border rounded px-2 py-1 text-sm"
                         aria-label={`Role for user ${u.name}`}
                       >
                         <option value="USER">User</option>
-                        <option value="OTHER">Other</option>
                         <option value="MODERATOR">Moderator</option>
                         <option value="ADMIN">Admin</option>
                       </select>
@@ -242,7 +241,7 @@ export default function AdminUsersPage() {
             }}
             fields={[
               { name: 'name', label: 'Name' },
-              { name: 'role', label: 'Role', type: 'select', options: ['USER', 'OTHER', 'MODERATOR', 'ADMIN'] },
+              { name: 'role', label: 'Role', type: 'select', options: ['USER', 'MODERATOR', 'ADMIN'] },
               { name: 'isActive', label: 'Active', type: 'checkbox' },
             ]}
           />

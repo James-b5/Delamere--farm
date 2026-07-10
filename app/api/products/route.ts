@@ -28,12 +28,23 @@ export async function GET() {
       'fetch public products',
     );
 
-    const formatted = (products as Array<Record<string, any>>).map((p: any) => ({
-      ...p,
-      images: safeJsonParse<string[]>(p.images, []),
-      videos: safeJsonParse<string[]>(p.videos, []),
-      specs: safeJsonParse<Record<string, any>>(p.specs, {}),
-    }));
+    const formatted = (products as Array<Record<string, any>>).map((p: any) => {
+      const images = safeJsonParse<string[]>(p.images, []);
+      const normalizedImages = (images.length ? images : []).map((src) => {
+        if (!src) return '/images/product-placeholder.svg';
+        if (typeof src === 'string' && src.includes('via.placeholder.com')) {
+          return '/images/product-placeholder.svg';
+        }
+        return src;
+      });
+
+      return {
+        ...p,
+        images: normalizedImages.length ? normalizedImages : ['/images/product-placeholder.svg'],
+        videos: safeJsonParse<string[]>(p.videos, []),
+        specs: safeJsonParse<Record<string, any>>(p.specs, {}),
+      };
+    });
 
     return NextResponse.json(formatted);
   } catch (error) {

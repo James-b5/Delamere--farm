@@ -28,7 +28,7 @@ export default function ProfileDropdown() {
       setIsLoading(true);
       logout();
       setIsOpen(false);
-    } catch (error) {
+    } catch {
       toast.error("Failed to logout");
     } finally {
       setIsLoading(false);
@@ -67,8 +67,8 @@ export default function ProfileDropdown() {
             <p className="text-sm font-semibold text-gray-900">{user?.name}</p>
             <p className="text-xs text-gray-600">{user?.email}</p>
             {(isAdmin || isModerator) && (
-                <span className="inline-block mt-2 px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-bold">
-                {isAdmin ? 'Admin' : 'Other'}
+              <span className="inline-block mt-2 px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-bold">
+                {isAdmin ? 'Admin' : 'Moderator'}
               </span>
             )}
           </div>
@@ -115,7 +115,7 @@ export default function ProfileDropdown() {
                   className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors"
                 >
                   <Settings className="w-4 h-4" />
-                  <span className="text-sm font-medium">{isAdmin ? 'Admin' : 'Other'} Panel</span>
+                  <span className="text-sm font-medium">{isAdmin ? 'Admin' : 'Moderator'} Panel</span>
                 </Link>
               </>
             )}

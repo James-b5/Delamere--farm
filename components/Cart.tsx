@@ -1,13 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 export default function Cart() {
-  const { items, total, removeItem, updateQuantity, clearCart } = useCart();
+  const { items, total, updateQuantity, clearCart } = useCart();
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const cartRef = useRef<HTMLDivElement>(null);

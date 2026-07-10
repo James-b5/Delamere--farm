@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { authenticatedFetch } from "@/lib/fetch-helper";
 import Link from "next/link";
-import { ArrowLeft, Loader, Calendar, AlertCircle } from "lucide-react";
+import { ArrowLeft, Loader, Calendar } from "lucide-react";
 import toast from "react-hot-toast";
 
 interface Booking {
@@ -20,17 +20,17 @@ interface Booking {
 }
 
 export default function ModeratorBookings() {
-  const { user, isModerator, isAdmin } = useAuth();
+  const { user, isModerator, isAdmin, isLoading: authLoading } = useAuth();
   const router = useRouter();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState<string>("all");
 
   useEffect(() => {
-    if (!user || (!isModerator && !isAdmin)) {
+    if (!authLoading && (!user || (!isModerator && !isAdmin))) {
       router.push("/login");
     }
-  }, [user, isModerator, isAdmin, router]);
+  }, [authLoading, user, isModerator, isAdmin, router]);
 
   useEffect(() => {
     async function fetchBookings() {
@@ -42,7 +42,7 @@ export default function ModeratorBookings() {
         } else {
           toast.error("Failed to load bookings");
         }
-      } catch (err) {
+      } catch {
         console.error("Failed to fetch bookings");
         toast.error("Error fetching bookings");
       } finally {
@@ -73,7 +73,7 @@ export default function ModeratorBookings() {
     }
   };
 
-  if (!user || (!isModerator && !isAdmin)) {
+  if (authLoading || !user || (!isModerator && !isAdmin)) {
     return null;
   }
 

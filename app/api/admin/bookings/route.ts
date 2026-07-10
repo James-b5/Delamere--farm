@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { checkAdminOrModeratorAccess, badRequestResponse, serverErrorResponse } from '@/lib/api-utils';
+import fs from 'fs';
+import path from 'path';
 
 function normalizeBooking(booking: any) {
   const { User, ...rest } = booking;
@@ -19,6 +21,22 @@ export async function GET(req: Request) {
       include: { User: true },
       orderBy: { bookingDate: 'desc' },
     });
+    // If DB returned no bookings, attempt to read the local fallback store
+    if ((!bookings || bookings.length === 0) && typeof process !== 'undefined') {
+      try {
+        const fallbackPath = path.join(process.cwd(), 'data', 'prisma-fallback-store.json');
+        if (fs.existsSync(fallbackPath)) {
+          const raw = fs.readFileSync(fallbackPath, 'utf8');
+          const parsed = JSON.parse(raw || '{}');
+          const fb = parsed.booking || parsed.Booking || parsed.booking || [];
+          if (Array.isArray(fb) && fb.length > 0) {
+            return NextResponse.json(fb.map(normalizeBooking));
+          }
+        }
+      } catch (fallbackError) {
+        console.error('Failed to read fallback bookings store:', fallbackError);
+      }
+    }
     return NextResponse.json(bookings.map(normalizeBooking));
   } catch (error) {
     console.error('Failed to fetch bookings:', error);

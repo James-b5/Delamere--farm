@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { authenticatedFetch } from "@/lib/fetch-helper";
 import Link from "next/link";
-import { BarChart3, Package, ShoppingCart, Users, AlertCircle, Loader } from "lucide-react";
+import { BarChart3, Package, ShoppingCart, Users, AlertCircle, Loader, CalendarDays, ImagePlus } from "lucide-react";
 import toast from "react-hot-toast";
 
 interface Analytics {
@@ -17,16 +17,16 @@ interface Analytics {
 }
 
 export default function ModeratorDashboard() {
-  const { user, isModerator, isAdmin } = useAuth();
+  const { user, isModerator, isAdmin, isLoading: authLoading } = useAuth();
   const router = useRouter();
   const [stats, setStats] = useState<Analytics | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user || (!isModerator && !isAdmin)) {
+    if (!authLoading && (!user || (!isModerator && !isAdmin))) {
       router.push("/login");
     }
-  }, [user, isModerator, isAdmin, router]);
+  }, [authLoading, user, isModerator, isAdmin, router]);
 
   // Fetch analytics data
   useEffect(() => {
@@ -36,18 +36,18 @@ export default function ModeratorDashboard() {
         if (!res.ok) throw new Error("Failed to fetch analytics");
         const data = await res.json();
         setStats(data);
-      } catch (err) {
+      } catch {
         toast.error("Unable to load dashboard statistics");
       } finally {
         setLoading(false);
       }
     }
-    if (user?.role === "OTHER" || user?.role === "ADMIN") {
+    if (!authLoading && (user?.role === "OTHER" || user?.role === "ADMIN" || user?.role === "MODERATOR")) {
       fetchAnalytics();
     }
-  }, [user]);
+  }, [authLoading, user]);
 
-  if (!user || (!isModerator && !isAdmin)) {
+  if (authLoading || !user || (!isModerator && !isAdmin)) {
     return null;
   }
 
@@ -58,8 +58,8 @@ export default function ModeratorDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Other Dashboard</h1>
-              <p className="mt-2 text-sm text-gray-600">Welcome, {user.name || "Other"}</p>
+              <h1 className="text-3xl font-bold text-gray-900">Moderator Dashboard</h1>
+              <p className="mt-2 text-sm text-gray-600">Welcome, {user.name || "Moderator"}</p>
             </div>
             <Link
               href="/"
@@ -78,7 +78,7 @@ export default function ModeratorDashboard() {
           <AlertCircle className="w-5 h-5 text-blue-600 mr-3 mt-0.5 shrink-0" />
           <div>
             <p className="text-sm font-medium text-blue-900">Limited Access</p>
-            <p className="text-sm text-blue-700">As an Other, you can view and manage products, orders, and user accounts.</p>
+            <p className="text-sm text-blue-700">As a Moderator, you can manage bookings, orders, products, users, and media uploads.</p>
           </div>
         </div>
 
@@ -142,39 +142,66 @@ export default function ModeratorDashboard() {
         ) : null}
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           <Link
             href="/moderator/products"
             className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
           >
             <Package className="w-8 h-8 text-blue-600 mb-3" />
             <h3 className="text-lg font-semibold text-gray-900">Manage Products</h3>
-            <p className="text-sm text-gray-600 mt-1">View and manage product listings</p>
+            <p className="text-sm text-gray-600 mt-1">Review and manage product listings</p>
+          </Link>
+
+          <Link
+            href="/moderator/products"
+            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
+          >
+            <Package className="w-8 h-8 text-green-600 mb-3" />
+            <h3 className="text-lg font-semibold text-gray-900">Upload Products</h3>
+            <p className="text-sm text-gray-600 mt-1">Create and publish new product listings</p>
           </Link>
 
           <Link
             href="/moderator/orders"
             className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
           >
-            <ShoppingCart className="w-8 h-8 text-green-600 mb-3" />
-            <h3 className="text-lg font-semibold text-gray-900">View Orders</h3>
+            <ShoppingCart className="w-8 h-8 text-purple-600 mb-3" />
+            <h3 className="text-lg font-semibold text-gray-900">Manage Orders</h3>
             <p className="text-sm text-gray-600 mt-1">Review and manage customer orders</p>
+          </Link>
+
+          <Link
+            href="/moderator/bookings"
+            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
+          >
+            <CalendarDays className="w-8 h-8 text-orange-600 mb-3" />
+            <h3 className="text-lg font-semibold text-gray-900">Manage Bookings</h3>
+            <p className="text-sm text-gray-600 mt-1">Track and update farm bookings</p>
           </Link>
 
           <Link
             href="/moderator/users"
             className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
           >
-            <Users className="w-8 h-8 text-purple-600 mb-3" />
+            <Users className="w-8 h-8 text-indigo-600 mb-3" />
             <h3 className="text-lg font-semibold text-gray-900">Manage Users</h3>
             <p className="text-sm text-gray-600 mt-1">View and manage user accounts</p>
+          </Link>
+
+          <Link
+            href="/gallery"
+            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
+          >
+            <ImagePlus className="w-8 h-8 text-rose-600 mb-3" />
+            <h3 className="text-lg font-semibold text-gray-900">Upload Media</h3>
+            <p className="text-sm text-gray-600 mt-1">Manage photo and video uploads</p>
           </Link>
 
           <Link
             href="/moderator/analytics"
             className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
           >
-            <BarChart3 className="w-8 h-8 text-orange-600 mb-3" />
+            <BarChart3 className="w-8 h-8 text-amber-600 mb-3" />
             <h3 className="text-lg font-semibold text-gray-900">Analytics</h3>
             <p className="text-sm text-gray-600 mt-1">View dashboard analytics and reports</p>
           </Link>

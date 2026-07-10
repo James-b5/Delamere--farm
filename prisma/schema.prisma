@@ -1,11 +1,9 @@
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
   schemas  = ["auth", "public"]
 }
 
@@ -663,16 +661,11 @@ model Product {
   id          String      @id @db.VarChar(255)
   name        String      @db.VarChar(255)
   description String
-  category    String?     @db.VarChar(255)
   price       Float
   stock       Int?        @default(0)
   deleted     Boolean?    @default(false)
-  breed       String?     @db.VarChar(255)
-  healthStatus String?    @db.VarChar(255)
-  ageOrWeight String?     @db.VarChar(255)
   images      String?     @default("[]")
   videos      String?     @default("[]")
-  documents   String?     @default("[]")
   specs       String?     @default("{}")
   createdAt   DateTime?   @default(now()) @db.Timestamp(6)
   updatedAt   DateTime?   @default(now()) @db.Timestamp(6)
@@ -714,7 +707,7 @@ model Tag {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model User {
-  id                 String     @id @default(uuid()) @db.Uuid
+  id                 String     @id @default(uuid()) @db.VarChar(255)
   name               String?    @db.VarChar(255)
   email              String     @unique @db.VarChar(255)
   emailVerified      Boolean?   @default(false)

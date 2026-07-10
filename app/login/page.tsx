@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { Mail, Loader } from "lucide-react";
 import InputGroup from '@/components/InputGroup';
@@ -12,18 +11,16 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [passwordFocused, setPasswordFocused] = useState(false);
-  const router = useRouter();
   const { login } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
       await login(email, password);
     } catch (error) {
+      console.error('Login failed:', error);
       // Error is handled by toast in AuthContext
     } finally {
       setIsLoading(false);
@@ -31,7 +28,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-center bg-[radial-gradient(circle_at_top,_#ecfdf5,_#f8fafc_60%,_#eff6ff)] px-4 py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen flex-col justify-center bg-[radial-gradient(circle_at_top,#ecfdf5,#f8fafc_60%,#eff6ff)] px-4 py-12 sm:px-6 lg:px-8">
       <div className="mb-8 text-center sm:mx-auto sm:w-full sm:max-w-md">
         <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-600 shadow-lg shadow-emerald-200">
           <span className="text-2xl font-bold text-white">D</span>
@@ -57,6 +54,7 @@ export default function LoginPage() {
                 <InputGroup left={<Mail className="h-5 w-5 text-slate-400" />}>
                   <input
                     id="email"
+                    name="email"
                     type="email"
                     autoComplete="email"
                     required

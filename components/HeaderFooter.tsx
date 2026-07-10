@@ -273,9 +273,19 @@ export default function HeaderFooter({ children }: HeaderFooterProps) {
                 <li>Nakuru, Kenya</li>
                 <li>Mon-Sat: 8am-5pm</li>
                 <li>
-                    <a href={whatsappHref}>
-                      WhatsApp: +25475141445
-                    </a>
+                  <a href={`tel:0751741445`} className="hover:text-white">
+                    Phone: 0751741445
+                  </a>
+                </li>
+                <li>
+                  <a href={`mailto:delameredairyfarm254@gmail.com`} className="hover:text-white">
+                    Email: delameredairyfarm254@gmail.com
+                  </a>
+                </li>
+                <li>
+                  <a href={whatsappHref} className="hover:text-white">
+                    WhatsApp
+                  </a>
                 </li>
               </ul>
             </div>

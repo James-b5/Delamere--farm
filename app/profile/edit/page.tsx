@@ -26,7 +26,7 @@ export default function ProfileEditPage() {
     setLoading(true);
     try {
       // Update locally via context; server sync can be implemented later
-      updateProfile({ name: name || null, phone: phone || null, address: address || null });
+      updateProfile({ name: name || undefined, phone: phone || undefined, address: address || undefined });
       toast.success("Profile updated");
       router.push("/dashboard");
     } catch (err) {

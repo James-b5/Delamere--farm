@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { authenticatedFetch } from "@/lib/fetch-helper";
 import Link from "next/link";
-import { ArrowLeft, Loader, Package, AlertCircle } from "lucide-react";
+import { ArrowLeft, Loader, Package } from "lucide-react";
 import toast from "react-hot-toast";
 
 interface Product {
@@ -18,17 +18,17 @@ interface Product {
 }
 
 export default function ModeratorProducts() {
-  const { user, isModerator, isAdmin } = useAuth();
+  const { user, isModerator, isAdmin, isLoading: authLoading } = useAuth();
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    if (!user || (!isModerator && !isAdmin)) {
+    if (!authLoading && (!user || (!isModerator && !isAdmin))) {
       router.push("/login");
     }
-  }, [user, isModerator, isAdmin, router]);
+  }, [authLoading, user, isModerator, isAdmin, router]);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -40,7 +40,7 @@ export default function ModeratorProducts() {
         } else {
           toast.error("Failed to load products");
         }
-      } catch (err) {
+      } catch {
         console.error("Failed to fetch products");
         toast.error("Error fetching products");
       } finally {
@@ -58,7 +58,7 @@ export default function ModeratorProducts() {
       p.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  if (!user || (!isModerator && !isAdmin)) {
+  if (authLoading || !user || (!isModerator && !isAdmin)) {
     return null;
   }
 

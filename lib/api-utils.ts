@@ -6,6 +6,13 @@ import { verifyToken, authOptions } from '@/lib/auth';
 
 export type AllowedRole = 'ADMIN' | 'MODERATOR';
 
+function normalizeRole(role: string | null | undefined): string | null {
+  if (!role) return null;
+  // Some users were created with role 'OTHER' to represent moderators —
+  // normalize to 'MODERATOR' for server-side checks.
+  if (role === 'OTHER') return 'MODERATOR';
+  return role;
+}
 /**
  * Extract JWT token from Authorization header
  */
@@ -108,8 +115,9 @@ export async function checkAdminOrModeratorAccess(request?: Request) {
   }
 
   // If we already have the role from token/session, verify it directly
-  if (role && (role === 'ADMIN' || role === 'MODERATOR')) {
-    return { id: userId, role: role as 'ADMIN' | 'MODERATOR' };
+  const normalized = normalizeRole(role);
+  if (normalized && (normalized === 'ADMIN' || normalized === 'MODERATOR')) {
+    return { id: userId, role: normalized as 'ADMIN' | 'MODERATOR' };
   }
 
   const user = await prisma.user.findUnique({
@@ -117,7 +125,8 @@ export async function checkAdminOrModeratorAccess(request?: Request) {
     select: { role: true, id: true, name: true, email: true },
   });
 
-  if (!user || (user.role !== 'ADMIN' && user.role !== 'MODERATOR')) {
+  const dbRole = normalizeRole(user?.role ?? null);
+  if (!user || (dbRole !== 'ADMIN' && dbRole !== 'MODERATOR')) {
     return null;
   }
 
@@ -151,7 +160,9 @@ export async function checkRoleAccess(allowedRoles: AllowedRole[], request?: Req
     select: { role: true, id: true },
   });
 
-  if (!user || !allowedRoles.includes(user.role as AllowedRole)) {
+  if (!user) return null;
+  const dbRole = normalizeRole(user.role ?? null);
+  if (!dbRole || !allowedRoles.includes(dbRole as AllowedRole)) {
     return null;
   }
 

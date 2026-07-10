@@ -267,6 +267,21 @@
       "id": "product-1783245702339-1g51xb",
       "createdAt": "2026-07-05T10:01:42.343Z",
       "updatedAt": "2026-07-05T10:01:42.343Z"
+    },
+    {
+      "name": "Smoke Test Product",
+      "description": "Test",
+      "price": 10,
+      "stock": 5,
+      "images": "[]",
+      "videos": "[]",
+      "breed": null,
+      "healthStatus": null,
+      "ageOrWeight": null,
+      "documents": "[]",
+      "id": "product-1783432244165-6hkwum",
+      "createdAt": "2026-07-07T13:50:44.165Z",
+      "updatedAt": "2026-07-07T13:50:44.165Z"
     }
   ],
   "media": [
@@ -385,7 +400,7 @@
       "name": "Admin User",
       "email": "admin@delamerefarm.co.ke",
       "emailVerified": true,
-      "passwordHash": "$2a$10$G54TOjTdHcJcpiArbvFjUOLoYketnJ/6qmXZoaxA5StKsgKcHMjdi",
+      "passwordHash": "$2a$10$RfTJxyfs3wj6nh1nHh.4lO9Lv.XMtP1JRIpQhB.nLlhzhb7gP4v0m",
       "role": "ADMIN",
       "permissions": [],
       "isActive": true,
@@ -410,6 +425,18 @@
       "id": "blogpost-1783205587181-mn1vh8",
       "createdAt": "2026-07-04T22:53:07.181Z",
       "updatedAt": "2026-07-04T22:53:07.181Z"
+    },
+    {
+      "title": "Smoke article 1783432872678",
+      "slug": "smoke-article-1783432872678-6195",
+      "excerpt": "smoke",
+      "content": "smoke content",
+      "author": "cmq51d27r00009q8wi6j214fj",
+      "published": false,
+      "coverImage": null,
+      "id": "blogpost-1783432877046-br2nxk",
+      "createdAt": "2026-07-07T14:01:17.046Z",
+      "updatedAt": "2026-07-07T14:01:17.046Z"
     }
   ],
   "posttag": [
@@ -577,5 +604,53 @@
       "updatedAt": "2026-07-05T15:43:59.039Z"
     }
   ],
-  "order": []
+  "order": [],
+  "orderitem": [
+    {
+      "id": "item-1783432256875-7q8lt1",
+      "orderId": "order-1783432255989",
+      "productId": "product-1783432244165-6hkwum",
+      "quantity": 1,
+      "price": 10,
+      "createdAt": "2026-07-07T13:50:58.687Z",
+      "updatedAt": "2026-07-07T13:50:58.687Z"
+    },
+    {
+      "id": "item-1783432260620-0f570i",
+      "orderId": "order-1783432260320",
+      "productId": "product-1783432244165-6hkwum",
+      "quantity": 1,
+      "price": 10,
+      "createdAt": "2026-07-07T13:51:02.410Z",
+      "updatedAt": "2026-07-07T13:51:02.410Z"
+    }
+  ],
+  "booking": [
+    {
+      "userId": null,
+      "name": "Smoke Tester",
+      "email": "smoke@test.com",
+      "phone": "+254700000000",
+      "bookingDate": "2026-07-08T13:54:13.003Z",
+      "numberOfPeople": 2,
+      "notes": "Smoke test booking",
+      "status": "PENDING",
+      "id": "booking-1783432454824-c948l4",
+      "createdAt": "2026-07-07T13:54:14.824Z",
+      "updatedAt": "2026-07-07T13:54:14.824Z"
+    },
+    {
+      "userId": null,
+      "name": "Debug Tester",
+      "email": "debug@test.com",
+      "phone": "+254700000001",
+      "bookingDate": "2026-07-07T15:08:08.370Z",
+      "numberOfPeople": 3,
+      "notes": "debug",
+      "status": "PENDING",
+      "id": "booking-1783433288927-ck8o80",
+      "createdAt": "2026-07-07T14:08:08.928Z",
+      "updatedAt": "2026-07-07T14:08:08.928Z"
+    }
+  ]
 }

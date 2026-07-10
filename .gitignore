@@ -51,6 +51,9 @@ temp.jwt
 /test-results
 /installer_logs
 
+# Prisma introspection output
+prisma/introspected.schema.prisma
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -1,6 +1,35 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { checkAdminOrModeratorAccess, badRequestResponse, serverErrorResponse } from '@/lib/api-utils';
+import { verifyToken } from '@/lib/auth';
+
+// Debug helper: log incoming auth headers and token decode results to server console
+function logAuthDebug(request: Request) {
+  try {
+    const method = (request as any).method || 'UNKNOWN';
+    const url = (request as any).url || '';
+    const authHeader = request.headers.get('authorization') || request.headers.get('Authorization');
+    console.log('[admin/orders] incoming request', method, url);
+    console.log('[admin/orders] authorization header present:', !!authHeader);
+    if (authHeader) {
+      console.log('[admin/orders] authorization header (trim):', authHeader.length > 200 ? authHeader.slice(0, 200) + '...[truncated]' : authHeader);
+      if (authHeader.startsWith('Bearer ')) {
+        const token = authHeader.slice(7);
+        try {
+          const decoded = verifyToken(token);
+          console.log('[admin/orders] token decoded:', decoded);
+        } catch (err) {
+          console.log('[admin/orders] token verify error:', err && (err as Error).message ? (err as Error).message : String(err));
+        }
+      }
+    } else {
+      console.log('[admin/orders] no authorization header — request may rely on session/cookie');
+    }
+  } catch (e) {
+    // best-effort logging
+    console.error('[admin/orders] logAuthDebug failed', e);
+  }
+}
 
 function normalizeOrder(order: any) {
   const { OrderItem, User, ...rest } = order;
@@ -15,6 +44,7 @@ function normalizeOrder(order: any) {
 
 // GET handler – list orders, optionally CSV
 export async function GET(req: Request) {
+  logAuthDebug(req);
   const user = await checkAdminOrModeratorAccess(req);
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -56,6 +86,7 @@ export async function GET(req: Request) {
 
 // PATCH handler – update order status
 export async function PATCH(req: Request) {
+  logAuthDebug(req);
   const user = await checkAdminOrModeratorAccess(req);
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -81,6 +112,7 @@ export async function PATCH(req: Request) {
 
 // DELETE handler – remove an order (admin only)
 export async function DELETE(req: Request) {
+  logAuthDebug(req);
   const user = await checkAdminOrModeratorAccess(req);
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -90,10 +122,13 @@ export async function DELETE(req: Request) {
     const { orderId } = await req.json();
     if (!orderId) return badRequestResponse('orderId required');
 
-    await prisma.$transaction([
-      prisma.orderItem.deleteMany({ where: { orderId } }),
-      prisma.order.delete({ where: { id: orderId } }),
-    ]);
+    const existingOrder = await prisma.order.findUnique({ where: { id: orderId } });
+    if (!existingOrder) {
+      return NextResponse.json({ error: 'Order not found' }, { status: 404 });
+    }
+
+    await prisma.orderItem.deleteMany({ where: { orderId } });
+    await prisma.order.delete({ where: { id: orderId } });
 
     return NextResponse.json({ success: true, orderId });
   } catch (error) {

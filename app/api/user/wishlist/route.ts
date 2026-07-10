@@ -23,9 +23,9 @@ export async function GET(request: Request) {
   const email = await getEmailFromRequest(request);
   if (!email) return NextResponse.json({ error: 'Unauthenticated' }, { status: 401 });
 
-  const user = await prisma.user.findUnique({ where: { email }, include: { wishlist: { include: { product: true } } } });
+  const user = await prisma.user.findUnique({ where: { email }, include: { Wishlist: { include: { Product: true } } } });
   if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 });
-  return NextResponse.json(user.wishlist ?? []);
+  return NextResponse.json(user.Wishlist ?? []);
 }
 
 // POST - toggle wishlist item (expects { productId })

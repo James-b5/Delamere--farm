@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { authenticatedFetch } from "@/lib/fetch-helper";
 import Link from "next/link";
-import { ArrowLeft, Loader, ShoppingCart, AlertCircle } from "lucide-react";
+import { ArrowLeft, Loader, ShoppingCart } from "lucide-react";
 import toast from "react-hot-toast";
 
 interface Order {
@@ -18,17 +18,17 @@ interface Order {
 }
 
 export default function ModeratorOrders() {
-  const { user, isModerator, isAdmin } = useAuth();
+  const { user, isModerator, isAdmin, isLoading: authLoading } = useAuth();
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState<string>("all");
 
   useEffect(() => {
-    if (!user || (!isModerator && !isAdmin)) {
+    if (!authLoading && (!user || (!isModerator && !isAdmin))) {
       router.push("/login");
     }
-  }, [user, isModerator, isAdmin, router]);
+  }, [authLoading, user, isModerator, isAdmin, router]);
 
   useEffect(() => {
     async function fetchOrders() {
@@ -40,7 +40,7 @@ export default function ModeratorOrders() {
         } else {
           toast.error("Failed to load orders");
         }
-      } catch (err) {
+      } catch {
         console.error("Failed to fetch orders");
         toast.error("Error fetching orders");
       } finally {
@@ -71,7 +71,7 @@ export default function ModeratorOrders() {
     }
   };
 
-  if (!user || (!isModerator && !isAdmin)) {
+  if (authLoading || !user || (!isModerator && !isAdmin)) {
     return null;
   }
 
@@ -153,6 +153,36 @@ export default function ModeratorOrders() {
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
                       {new Date(order.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 text-sm">
+                      {/* Moderators can delete if authorized */}
+                      {(isModerator || isAdmin) && (
+                        <button
+                          onClick={async () => {
+                            if (!confirm('Delete this order? This action cannot be undone.')) return;
+                            try {
+                              const res = await authenticatedFetch('/api/orders', {
+                                method: 'DELETE',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ orderId: order.id }),
+                              });
+                              if (res.ok) {
+                                setOrders((prev) => prev.filter((o) => o.id !== order.id));
+                                toast.success('Order deleted');
+                              } else {
+                                const d = await res.json();
+                                toast.error(d.error || 'Failed to delete');
+                              }
+                            } catch (e) {
+                              console.error(e);
+                              toast.error('Failed to delete order');
+                            }
+                          }}
+                          className="text-red-600 hover:text-red-700 font-medium"
+                        >
+                          Delete
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}

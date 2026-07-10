@@ -11,7 +11,7 @@ export interface AuthUser {
   phone?: string | null;
   address?: string;
   county?: string;
-  role: "USER" | "ADMIN" | "OTHER";
+  role: "USER" | "ADMIN" | "OTHER" | "MODERATOR";
 }
 
 interface AuthContextType {
@@ -57,6 +57,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(false);
   }, []);
 
+  const redirectToDashboard = () => {
+    // Prefer client-side replace; fall back to push on the server and a hard navigation
+    if (typeof window !== "undefined") {
+      try {
+        router.replace("/dashboard");
+      } catch (e) {
+        // If client-side routing fails for any reason, do a hard navigation
+        window.location.href = "/dashboard";
+      }
+      // Force a hard navigation shortly after to avoid SPA timing races in E2E
+      // (router.replace may be delayed under test harnesses)
+      setTimeout(() => {
+        try {
+          if (typeof window !== "undefined" && window.location.pathname === "/login") {
+            window.location.replace("/dashboard");
+          }
+        } catch (e) {
+          // best-effort
+          try { window.location.href = "/dashboard"; } catch (e) {}
+        }
+      }, 200);
+    } else {
+      router.push("/dashboard");
+    }
+  };
+
   const register = async (
     name: string,
     email: string,
@@ -87,8 +113,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem("auth_token", data.token);
       localStorage.setItem("auth_user", JSON.stringify(data.user));
       setUser(data.user);
+      // Notify other listeners/tabs that auth changed and give consumers a moment
+      try {
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new Event("auth:updated"));
+          // small delay to ensure localStorage is read by subsequent navigation/renders (helps E2E timing)
+          await new Promise((r) => setTimeout(r, 50));
+        }
+      } catch (e) {
+        // ignore
+      }
+
       toast.success("Account created successfully!");
-      router.push("/dashboard");
+      redirectToDashboard();
     } catch (error) {
       const message = error instanceof Error ? error.message : "Registration failed";
       toast.error(message);
@@ -100,14 +137,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     try {
+      console.log('auth-context-login-start', { email, password });
       setIsLoading(true);
       const response = await fetch("/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ email, password }).toString(),
       });
 
       const data = await response.json();
+      console.log("auth-login-response", response.status, data);
 
       if (!response.ok) {
         throw new Error(data.error || "Login failed");
@@ -116,10 +155,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem("auth_token", data.token);
       localStorage.setItem("auth_user", JSON.stringify(data.user));
       setUser(data.user);
+      // Notify other listeners/tabs that auth changed and give consumers a moment
+      try {
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new Event("auth:updated"));
+          await new Promise((r) => setTimeout(r, 50));
+        }
+      } catch (e) {
+        // ignore
+      }
+
       toast.success("Logged in successfully!");
-      
+
       // All logged in users go to dashboard
-      router.push("/dashboard");
+      redirectToDashboard();
     } catch (error) {
       const message = error instanceof Error ? error.message : "Login failed";
       toast.error(message);
@@ -155,7 +204,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         logout,
         updateProfile,
         isAdmin: user?.role === "ADMIN",
-        isModerator: user?.role === "OTHER",
+        // Normalize client-side: some moderator users use role 'OTHER' in the DB
+        isModerator: user ? (user.role === "OTHER" || user.role === "MODERATOR") : false,
       }}
     >
       {children}

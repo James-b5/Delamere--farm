@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { checkAdminAccess, serverErrorResponse } from '@/lib/api-utils';
+import { checkAdminOrModeratorAccess, serverErrorResponse } from '@/lib/api-utils';
 import { getAnalyticsSummary } from '@/lib/analytics-store';
 
 export async function GET(req: Request) {
-  const user = await checkAdminAccess(req);
+  const user = await checkAdminOrModeratorAccess(req);
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }

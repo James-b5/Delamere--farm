@@ -18,17 +18,17 @@ interface User {
 }
 
 export default function ModeratorUsers() {
-  const { user, isModerator, isAdmin } = useAuth();
+  const { user, isModerator, isAdmin, isLoading: authLoading } = useAuth();
   const router = useRouter();
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    if (!user || (!isModerator && !isAdmin)) {
+    if (!authLoading && (!user || (!isModerator && !isAdmin))) {
       router.push("/login");
     }
-  }, [user, isModerator, isAdmin, router]);
+  }, [authLoading, user, isModerator, isAdmin, router]);
 
   useEffect(() => {
     async function fetchUsers() {
@@ -40,7 +40,7 @@ export default function ModeratorUsers() {
         } else {
           toast.error("Failed to load users");
         }
-      } catch (err) {
+      } catch {
         console.error("Failed to fetch users");
         toast.error("Error fetching users");
       } finally {
@@ -71,7 +71,7 @@ export default function ModeratorUsers() {
     }
   };
 
-  if (!user || (!isModerator && !isAdmin)) {
+  if (authLoading || !user || (!isModerator && !isAdmin)) {
     return null;
   }
 
@@ -96,16 +96,16 @@ export default function ModeratorUsers() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Permission Notice (only for limited 'OTHER' role) */}
-        {user?.role === "OTHER" && (
+        {/* Permission Notice */}
+        {user?.role === "OTHER" || user?.role === "MODERATOR" ? (
           <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-start">
             <AlertCircle className="w-5 h-5 text-blue-600 mr-3 mt-0.5 shrink-0" />
             <div>
-              <p className="text-sm font-medium text-blue-900">View Only Access</p>
-              <p className="text-sm text-blue-700">As an Other, you can view user accounts but cannot modify them.</p>
+              <p className="text-sm font-medium text-blue-900">Limited Access</p>
+              <p className="text-sm text-blue-700">You can view non-admin accounts, but creating or changing admin accounts is not allowed.</p>
             </div>
           </div>
-        )}
+        ) : null}
 
         {/* Search Bar */}
         <div className="mb-6">

@@ -148,9 +148,6 @@ body {
   box-shadow: 0 0 20px rgba(21, 128, 61, 0.3);
 }
 
-/* Smooth scrolling */
-html { scroll-behavior: smooth; }
-
 /* Marquee Animation */
 @keyframes marquee {
   0% { transform: translateX(0); }

@@ -24,9 +24,11 @@ export async function POST(request: Request) {
     if (!body?.title) return badRequestResponse('Title is required');
 
     const slug = slugify(body.title + '-' + Date.now().toString().slice(-4));
+    const generatedId = `blogpost-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     // Moderators create drafts: published=false
     const created = await prisma.blogPost.create({
       data: {
+        id: generatedId,
         title: body.title,
         slug,
         excerpt: body.excerpt || null,
