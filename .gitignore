@@ -60,3 +60,27 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# markdown documentation files
+*.md
+
+# test and debug files
+audit-results*.json
+tsc-report.txt
+eslint-report.txt
+next*.json
+outdated.json
+playwright-output.txt
+test-*.js
+check-*.ts
+check-*.js
+verify-*.ts
+verify-*.js
+
+# cleanup and repair scripts
+*.sql
+tmp*.js
+scripts/debug*.js
+scripts/test*.js
+scripts/check*.js
+scripts/diff*.py
