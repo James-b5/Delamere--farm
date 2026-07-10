@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
-type Role = "ADMIN" | "OTHER" | "USER";
+type Role = "ADMIN" | "MODERATOR" | "USER";
 
 /**
  * Higher‑order function to protect API routes with role‑based access control.

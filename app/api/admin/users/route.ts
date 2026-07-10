@@ -47,9 +47,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   try {
-    const { name, email, role: incomingRole, isActive } = await req.json();
-    // Normalize legacy 'OTHER' to 'MODERATOR' so admin selections wire correctly
-    const role = incomingRole === 'OTHER' ? 'MODERATOR' : incomingRole;
+    const { name, email, role, isActive } = await req.json();
     if (!email || !role) {
       return badRequestResponse('Email and role are required');
     }

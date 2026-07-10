@@ -47,10 +47,10 @@ export default function ModeratorProducts() {
         setIsLoading(false);
       }
     }
-    if (user?.role === "OTHER" || user?.role === "ADMIN") {
+    if (isModerator || isAdmin) {
       fetchProducts();
     }
-  }, [user]);
+  }, [user, isModerator, isAdmin]);
 
   const filteredProducts = products.filter(
     (p) =>
@@ -83,7 +83,6 @@ export default function ModeratorProducts() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
         {/* Search Bar */}
         <div className="mb-6">
           <input

@@ -42,7 +42,7 @@ export default function ModeratorDashboard() {
         setLoading(false);
       }
     }
-    if (!authLoading && (user?.role === "OTHER" || user?.role === "ADMIN" || user?.role === "MODERATOR")) {
+    if (!authLoading && (isModerator || isAdmin)) {
       fetchAnalytics();
     }
   }, [authLoading, user]);

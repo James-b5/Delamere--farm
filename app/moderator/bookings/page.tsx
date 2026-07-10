@@ -49,7 +49,7 @@ export default function ModeratorBookings() {
         setIsLoading(false);
       }
     }
-    if (user?.role === "OTHER" || user?.role === "ADMIN") {
+    if (isModerator || isAdmin) {
       fetchBookings();
     }
   }, [user]);

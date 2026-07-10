@@ -190,7 +190,7 @@ export default function AdminUsersPage() {
                       <label htmlFor={`role-select-${u.id}`} className="sr-only">User role for {u.name}</label>
                       <select
                         id={`role-select-${u.id}`}
-                        value={u.role === 'OTHER' ? 'MODERATOR' : u.role}
+                        value={u.role}
                         onChange={e => updateUser(u.id, { role: e.target.value })}
                         className="border rounded px-2 py-1 text-sm"
                         aria-label={`Role for user ${u.name}`}

@@ -11,7 +11,7 @@ export interface AuthUser {
   phone?: string | null;
   address?: string;
   county?: string;
-  role: "USER" | "ADMIN" | "OTHER" | "MODERATOR";
+  role: "USER" | "ADMIN" | "MODERATOR";
 }
 
 interface AuthContextType {
@@ -204,8 +204,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         logout,
         updateProfile,
         isAdmin: user?.role === "ADMIN",
-        // Normalize client-side: some moderator users use role 'OTHER' in the DB
-        isModerator: user ? (user.role === "OTHER" || user.role === "MODERATOR") : false,
+        isModerator: user?.role === "MODERATOR",
       }}
     >
       {children}

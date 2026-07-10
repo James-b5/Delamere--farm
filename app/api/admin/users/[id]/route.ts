@@ -11,8 +11,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   try {
     const { id } = await params;
     const body = await req.json();
-    const { role: incomingRole, isActive, name } = body;
-    const role = incomingRole === 'OTHER' ? 'MODERATOR' : incomingRole;
+    const { role, isActive, name } = body;
 
     const data: any = {};
     if (role !== undefined) data.role = role;

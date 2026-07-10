@@ -61,7 +61,7 @@ export default function ModeratorAnalytics() {
       }
     }
 
-    if (user?.role === "OTHER") {
+    if (isModerator) {
       fetchAnalytics();
     }
   }, [user]);

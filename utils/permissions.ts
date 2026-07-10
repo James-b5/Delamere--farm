@@ -2,7 +2,7 @@ export enum UserRole {
   USER = 'USER',
   STAFF = 'STAFF',
   MANAGER = 'MANAGER',
-  OTHER = 'OTHER',
+  MODERATOR = 'MODERATOR',
   ADMIN = 'ADMIN',
 }
 
@@ -15,7 +15,7 @@ export function canPerform(role: UserRole, action: string): boolean {
     [UserRole.USER]: [],
     [UserRole.STAFF]: ['view_products'],
     [UserRole.MANAGER]: ['view_products', 'create_order', 'view_orders'],
-    [UserRole.OTHER]: ['view_users', 'manage_users', 'view_products', 'view_analytics'],
+    [UserRole.MODERATOR]: ['view_users', 'manage_users', 'view_products', 'view_analytics'],
     [UserRole.ADMIN]: ['*'], // admin can do everything
   };
 

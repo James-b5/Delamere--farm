@@ -47,7 +47,7 @@ export default function ModeratorUsers() {
         setIsLoading(false);
       }
     }
-    if (user?.role === "OTHER" || user?.role === "ADMIN") {
+    if (isModerator || isAdmin) {
       fetchUsers();
     }
   }, [user]);
@@ -62,7 +62,7 @@ export default function ModeratorUsers() {
     switch (role) {
       case "ADMIN":
         return "bg-red-100 text-red-800";
-      case "OTHER":
+      case "MODERATOR":
         return "bg-blue-100 text-blue-800";
       case "USER":
         return "bg-gray-100 text-gray-800";
@@ -97,7 +97,7 @@ export default function ModeratorUsers() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Permission Notice */}
-        {user?.role === "OTHER" || user?.role === "MODERATOR" ? (
+        {isModerator ? (
           <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-start">
             <AlertCircle className="w-5 h-5 text-blue-600 mr-3 mt-0.5 shrink-0" />
             <div>

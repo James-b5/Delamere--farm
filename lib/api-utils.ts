@@ -8,9 +8,6 @@ export type AllowedRole = 'ADMIN' | 'MODERATOR';
 
 function normalizeRole(role: string | null | undefined): string | null {
   if (!role) return null;
-  // Some users were created with role 'OTHER' to represent moderators —
-  // normalize to 'MODERATOR' for server-side checks.
-  if (role === 'OTHER') return 'MODERATOR';
   return role;
 }
 /**
@@ -59,7 +56,7 @@ export async function checkAdminAccess(request?: Request) {
 }
 
 /**
- * Check if user has ADMIN or OTHER access
+ * Check if user has ADMIN or MODERATOR access
  * Returns user object if authorized, null otherwise
  */
 export async function checkAdminOrModeratorAccess(request?: Request) {
