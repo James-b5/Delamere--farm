@@ -1,10 +1,12 @@
+import { authenticatedFetch } from '@/lib/fetch-helper';
+
 export type SupabaseUploadSignature = {
   signedUrl: string;
   publicUrl: string;
 };
 
 export async function getSupabaseUploadSignature(folder: string, originalName: string, contentType: string): Promise<SupabaseUploadSignature> {
-  const response = await fetch('/api/admin/supabase-upload', {
+  const response = await authenticatedFetch('/api/admin/supabase-upload', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

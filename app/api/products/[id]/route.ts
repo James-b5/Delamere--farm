@@ -25,7 +25,6 @@ export async function GET(req: Request, context: { params: any }) {
         ageOrWeight: true,
         images: true,
         videos: true,
-        documents: true,
         specs: true,
         createdAt: true,
       },
@@ -39,20 +38,21 @@ export async function GET(req: Request, context: { params: any }) {
       try {
         if (!val) return fallback;
         return JSON.parse(val as unknown as string);
-      } catch (e) {
+      } catch {
         return fallback;
       }
     };
 
     const parsedImages = safeParse(product.images, []);
+    const parsedSpecs = safeParse(product.specs, {});
     const formatted = {
       ...product,
       images: parsedImages,
       image: parsedImages[0] || '/images/placeholder.jpg',
       videos: safeParse(product.videos, []),
-      documents: safeParse(product.documents, []),
+      documents: Array.isArray(parsedSpecs.documents) ? parsedSpecs.documents : [],
       features: [],
-      characteristics: safeParse(product.specs, {}),
+      characteristics: parsedSpecs,
     };
 
     return NextResponse.json(formatted);
