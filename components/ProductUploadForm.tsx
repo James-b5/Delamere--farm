@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import { authenticatedFetch } from '@/lib/fetch-helper';
+import { directUploadToSupabase } from '@/lib/supabase-direct-upload';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -240,12 +241,11 @@ export default function ProductUploadForm() {
     }
   };
 
-  const onSubmit = async (data: FormData) => {
-    if (previewImages.length === 0) {
-      toast.error('Please add at least one product image');
-      return;
-    }
+  const uploadFilesToSupabase = async (files: { file: File }[], folder: string) => {
+    return Promise.all(files.map(async (item) => directUploadToSupabase(item.file, folder)));
+  };
 
+  const submitProductFormData = async (data: FormData) => {
     const formData = new FormData();
     formData.append('name', data.name);
     formData.append('description', data.description);
@@ -272,54 +272,114 @@ export default function ProductUploadForm() {
       formData.append('videos', url);
     });
 
+    const response = await authenticatedFetch('/api/admin/products', {
+      method: 'POST',
+      body: formData,
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      let errorMessage = 'Failed to create product';
+      const contentType = response.headers.get('content-type') ?? '';
+
+      if (contentType.includes('application/json')) {
+        const errorBody = await response.json().catch(() => null);
+        if (errorBody?.error) {
+          errorMessage = errorBody.error;
+        } else if (typeof errorBody === 'string') {
+          errorMessage = errorBody;
+        }
+      } else {
+        const errorText = await response.text().catch(() => '');
+        if (errorText) {
+          errorMessage = errorText;
+        }
+      }
+
+      const detailedError = `Product upload failed: ${response.status} ${response.statusText} - ${errorMessage}`;
+      console.error('Product upload response error:', {
+        status: response.status,
+        statusText: response.statusText,
+        contentType,
+        errorMessage,
+      });
+      throw new Error(errorMessage || detailedError);
+    }
+
+    return response.json();
+  };
+
+  const onSubmit = async (data: FormData) => {
+    if (previewImages.length === 0) {
+      toast.error('Please add at least one product image');
+      return;
+    }
+
+    const productPayload = {
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      stock: data.stock,
+      category: data.category,
+      breed: data.breed,
+      healthStatus: data.healthStatus,
+      ageOrWeight: data.ageOrWeight,
+    };
+
     try {
+      const imageUrls = await uploadFilesToSupabase(previewImages, 'images');
+      const uploadedVideoUrls = await uploadFilesToSupabase(uploadedVideos, 'videos');
+      const documentUrls = await uploadFilesToSupabase(uploadedDocuments, 'documents');
+
       const response = await authenticatedFetch('/api/admin/products', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...productPayload,
+          images: imageUrls,
+          videos: [...videoUrls, ...uploadedVideoUrls],
+          documents: documentUrls,
+        }),
         credentials: 'include',
       });
 
       if (!response.ok) {
-        let errorMessage = 'Failed to create product';
-        const contentType = response.headers.get('content-type') ?? '';
-
-        if (contentType.includes('application/json')) {
-          const errorBody = await response.json().catch(() => null);
-          if (errorBody?.error) {
-            errorMessage = errorBody.error;
-          } else if (typeof errorBody === 'string') {
-            errorMessage = errorBody;
-          }
-        } else {
-          const errorText = await response.text().catch(() => '');
-          if (errorText) {
-            errorMessage = errorText;
-          }
-        }
-
-        const detailedError = `Product upload failed: ${response.status} ${response.statusText} - ${errorMessage}`;
-        console.error('Product upload response error:', {
-          status: response.status,
-          statusText: response.statusText,
-          contentType,
-          errorMessage,
-        });
-        throw new Error(errorMessage || detailedError);
+        throw new Error('Product creation failed after direct upload');
       }
 
       const created = await response.json();
       toast.success('Product created successfully!');
-      // Clear form state
       reset();
       setPreviewImages([]);
-      // revoke any video object URLs
-      uploadedVideos.forEach(v => v.url && URL.revokeObjectURL(v.url));
+      uploadedVideos.forEach((v) => v.url && URL.revokeObjectURL(v.url));
       setUploadedVideos([]);
       setUploadedDocuments([]);
       setVideoUrls([]);
       setVideoInput('');
 
-      // Redirect to newly created product page if id available
+      if (created?.id) {
+        router.push(`/products/${created.id}`);
+        return;
+      }
+
+      return;
+    } catch (directUploadError) {
+      console.warn('Supabase direct upload failed, falling back to server upload', directUploadError);
+    }
+
+    try {
+      const created = await submitProductFormData(data);
+      toast.success('Product created successfully!');
+      reset();
+      setPreviewImages([]);
+      uploadedVideos.forEach((v) => v.url && URL.revokeObjectURL(v.url));
+      setUploadedVideos([]);
+      setUploadedDocuments([]);
+      setVideoUrls([]);
+      setVideoInput('');
+
       if (created?.id) {
         router.push(`/products/${created.id}`);
         return;

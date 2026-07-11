@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
@@ -14,22 +16,27 @@ async function saveFile(file: File, folder: string): Promise<string> {
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
-  // If S3 is configured, upload to S3 and return the public URL
-  if (process.env.AWS_S3_BUCKET) {
+  if (process.env.AWS_S3_BUCKET || process.env.SUPABASE_URL) {
     try {
       return await uploadFile(buffer, file.name, file.type || 'application/octet-stream');
     } catch (e) {
       const errMsg = (e as any)?.message ?? String(e);
-      console.warn('S3 upload failed, falling back to local storage:', errMsg);
-      // continue to local storage fallback
+      console.warn('Storage upload failed, falling back to local storage when available:', errMsg);
     }
   }
 
-  const ext = file.name.split('.').pop();
-  const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${ext}`;
-  const filePath = `${process.cwd()}/public/uploads/${folder}/${fileName}`;
-  await require('fs').promises.mkdir(`${process.cwd()}/public/uploads/${folder}`, { recursive: true });
-  await require('fs').promises.writeFile(filePath, buffer);
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error(
+      'File upload failed because no writable local storage is available in production. Configure AWS_S3_BUCKET and valid S3 credentials to enable uploads.'
+    );
+  }
+
+  const ext = path.extname(file.name) || '';
+  const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 8)}${ext}`;
+  const uploadsDir = path.join(process.cwd(), 'public', 'uploads', folder);
+  await fs.promises.mkdir(uploadsDir, { recursive: true });
+  const filePath = path.join(uploadsDir, fileName);
+  await fs.promises.writeFile(filePath, buffer);
   return `/uploads/${folder}/${fileName}`;
 }
 
@@ -60,48 +67,76 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    let formData: any;
-    try {
-      formData = await req.formData();
-    } catch (inner) {
+    const contentType = req.headers.get('content-type') ?? '';
+    let type: string | undefined;
+    let title: string | undefined;
+    let description: string | undefined;
+    let order = 0;
+    let file: File | null = null;
+    let url: string | undefined;
+
+    if (contentType.includes('application/json')) {
+      const body = await req.json();
+      type = typeof body.type === 'string' ? body.type.toUpperCase() : undefined;
+      title = body.title;
+      description = body.description;
+      order = Number(body.order ?? 0);
+      url = typeof body.url === 'string' ? body.url.trim() : undefined;
+    } else {
+      let formData: any;
       try {
-        const raw = await req.text();
-        log(requestId, 'formData-parse-failed', (inner as any)?.message ?? String(inner), 'raw-preview', raw ? raw.substring(0, 2000) : '<empty>');
-      } catch (rerr) {
-        log(requestId, 'formData-parse-failed-could-not-read-raw', (rerr as any)?.message ?? String(rerr));
+        formData = await req.formData();
+      } catch (inner) {
+        try {
+          const raw = await req.text();
+          log(requestId, 'formData-parse-failed', (inner as any)?.message ?? String(inner), 'raw-preview', raw ? raw.substring(0, 2000) : '<empty>');
+        } catch (rerr) {
+          log(requestId, 'formData-parse-failed-could-not-read-raw', (rerr as any)?.message ?? String(rerr));
+        }
+        throw inner;
       }
-      throw inner;
-    }
-    const type = (formData.get('type') as string)?.toUpperCase(); // IMAGE or VIDEO
-    const title = formData.get('title') as string;
-    const description = formData.get('description') as string;
-    const order = Number(formData.get('order') ?? 0);
-    const file = formData.get('file') as File;
 
-    if (!type || !file) {
-      log(requestId, 'missing type or file');
-      return badRequestResponse('Missing type or file', requestId);
+      type = (formData.get('type') as string)?.toUpperCase();
+      title = formData.get('title') as string;
+      description = formData.get('description') as string;
+      order = Number(formData.get('order') ?? 0);
+      file = formData.get('file') as File | null;
+      const maybeUrl = formData.get('url');
+      if (typeof maybeUrl === 'string' && maybeUrl.trim()) {
+        url = maybeUrl.trim();
+      }
     }
 
-    // Validate type
-    if (!['IMAGE', 'VIDEO'].includes(type)) {
+    if (!type || !['IMAGE', 'VIDEO'].includes(type)) {
       log(requestId, 'invalid media type', type);
       return badRequestResponse('Invalid media type', requestId);
     }
 
-    // Size validation
-    const maxSize = type === 'VIDEO' ? 50 * 1024 * 1024 : 15 * 1024 * 1024;
-    if (file.size > maxSize) {
-      log(requestId, 'file too large', file.size);
-      return badRequestResponse(`File exceeds maximum size of ${type === 'VIDEO' ? '50' : '15'} MB`, requestId);
+    if (!file && !url) {
+      log(requestId, 'missing file and url');
+      return badRequestResponse('Missing file or url', requestId);
     }
 
-    const folder = type === 'VIDEO' ? 'videos' : 'images';
-    const url = await saveFile(file, folder);
-    log(requestId, 'file saved', url);
+    if (!title || !description) {
+      log(requestId, 'missing title or description');
+      return badRequestResponse('Missing title or description', requestId);
+    }
+
+    if (url && !/^https?:\/\//i.test(url)) {
+      log(requestId, 'invalid url', url);
+      return badRequestResponse('Invalid file URL', requestId);
+    }
+
+    let finalUrl = url;
+    if (!finalUrl && file) {
+      const folder = type === 'VIDEO' ? 'videos' : 'images';
+      const savedUrl = await saveFile(file, folder);
+      log(requestId, 'file saved', savedUrl);
+      finalUrl = savedUrl;
+    }
 
     const media = await prisma.media.create({
-      data: { type: type as any, url, title, description, order },
+      data: { type: type as any, url: finalUrl ?? '', title, description, order },
     });
     log(requestId, 'media record created', media.id);
     try { revalidatePath('/'); } catch (e) { /* ignore revalidation errors */ }

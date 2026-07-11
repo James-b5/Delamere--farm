@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { authenticatedFetch } from '@/lib/fetch-helper';
+import { directUploadToSupabase } from '@/lib/supabase-direct-upload';
 import toast from "react-hot-toast";
 import { useConfirm } from '@/components/ConfirmProvider';
 
@@ -69,13 +70,6 @@ export default function AdminMediaManager() {
     }
     if (!file) { toast.error('Select a file'); return; }
 
-    const fd = new FormData();
-    fd.append('file', file as Blob, (file as File).name);
-    fd.append('type', type);
-    fd.append('title', title);
-    fd.append('description', description);
-
-    // Optimistic: show a preview entry immediately
     const tempId = tempIdRef.current--;
     const previewUrl = URL.createObjectURL(file as Blob);
     const tempItem: MediaItem = {
@@ -88,19 +82,59 @@ export default function AdminMediaManager() {
     };
     setItems(prev => [tempItem, ...prev]);
 
-    const res = await authenticatedFetch('/api/admin/media', { method: 'POST', body: fd });
-    if (res.ok) {
-      const created = await res.json();
+    const uploadMetadata = async (url: string) => {
+      const body = JSON.stringify({
+        url,
+        type,
+        title,
+        description,
+        order: 0,
+      });
+      const res = await authenticatedFetch('/api/admin/media', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+        credentials: 'include',
+      });
+
+      if (!res.ok) {
+        const errorText = await parseErrorResponse(res);
+        throw new Error(errorText || 'Upload metadata failed');
+      }
+      return res.json();
+    };
+
+    try {
+      const folder = type === 'VIDEO' ? 'videos' : 'images';
+      const signedUrl = await directUploadToSupabase(file as File, folder);
+      const created = await uploadMetadata(signedUrl);
       setItems(prev => prev.map(i => i.id === tempId ? created : i));
       setFile(null);
       setTitle('');
       setDescription('');
       URL.revokeObjectURL(previewUrl);
-    } else {
-      const errorText = await parseErrorResponse(res);
-      setItems(prev => prev.filter(i => i.id !== tempId));
-      URL.revokeObjectURL(previewUrl);
-      throw new Error(errorText || 'Upload failed');
+    } catch (directError) {
+      console.warn('Supabase direct upload failed, falling back to server upload', directError);
+      const fd = new FormData();
+      fd.append('file', file as Blob, (file as File).name);
+      fd.append('type', type);
+      fd.append('title', title);
+      fd.append('description', description);
+
+      const res = await authenticatedFetch('/api/admin/media', { method: 'POST', body: fd });
+      if (res.ok) {
+        const created = await res.json();
+        setItems(prev => prev.map(i => i.id === tempId ? created : i));
+        setFile(null);
+        setTitle('');
+        setDescription('');
+        URL.revokeObjectURL(previewUrl);
+      } else {
+        const errorText = await parseErrorResponse(res);
+        setItems(prev => prev.filter(i => i.id !== tempId));
+        URL.revokeObjectURL(previewUrl);
+        throw new Error(errorText || 'Upload failed');
+      }
     }
   }
 

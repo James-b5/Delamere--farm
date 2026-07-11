@@ -1,6 +1,22 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { uploadFile } from '@/lib/storage';
 import { checkAdminOrModeratorAccess, badRequestResponse, safeJsonParse, serverErrorResponse } from '@/lib/api-utils';
+
+async function fileToStorageOrDataUrl(file: File) {
+  const buffer = Buffer.from(await file.arrayBuffer());
+
+  if (process.env.AWS_S3_BUCKET || process.env.SUPABASE_URL) {
+    try {
+      return await uploadFile(buffer, file.name, file.type || 'application/octet-stream');
+    } catch (error) {
+      console.warn('File upload to external storage failed, storing as data URL instead:', error);
+    }
+  }
+
+  const base64 = buffer.toString('base64');
+  return `data:${file.type};base64,${base64}`;
+}
 
 function parseProductMetadata(specs?: string | null) {
   const parsed = safeJsonParse<Record<string, any>>(specs, {});
@@ -82,35 +98,44 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     }
 
     let processedImages = images;
-    if (Array.isArray(images) && images.length > 0 && images[0] instanceof File) {
+    if (Array.isArray(images) && images.length > 0) {
       processedImages = [];
-      for (const file of images) {
-        const buffer = await (file as File).arrayBuffer();
-        const base64 = Buffer.from(buffer).toString('base64');
-        const dataUrl = `data:${(file as File).type};base64,${base64}`;
-        (processedImages as string[]).push(dataUrl);
+      for (const item of images) {
+        if (item instanceof File) {
+          (processedImages as string[]).push(await fileToStorageOrDataUrl(item));
+          continue;
+        }
+        if (typeof item === 'string') {
+          (processedImages as string[]).push(item);
+        }
       }
     }
 
     let processedVideos = videos;
-    if (Array.isArray(videos) && videos.length > 0 && videos[0] instanceof File) {
+    if (Array.isArray(videos) && videos.length > 0) {
       processedVideos = [];
-      for (const file of videos) {
-        const buffer = await (file as File).arrayBuffer();
-        const base64 = Buffer.from(buffer).toString('base64');
-        const dataUrl = `data:${(file as File).type};base64,${base64}`;
-        (processedVideos as string[]).push(dataUrl);
+      for (const item of videos) {
+        if (item instanceof File) {
+          (processedVideos as string[]).push(await fileToStorageOrDataUrl(item));
+          continue;
+        }
+        if (typeof item === 'string') {
+          (processedVideos as string[]).push(item);
+        }
       }
     }
 
     let processedDocuments = documents;
-    if (Array.isArray(documents) && documents.length > 0 && documents[0] instanceof File) {
+    if (Array.isArray(documents) && documents.length > 0) {
       processedDocuments = [];
-      for (const file of documents) {
-        const buffer = await (file as File).arrayBuffer();
-        const base64 = Buffer.from(buffer).toString('base64');
-        const dataUrl = `data:${(file as File).type};base64,${base64}`;
-        (processedDocuments as string[]).push(dataUrl);
+      for (const item of documents) {
+        if (item instanceof File) {
+          (processedDocuments as string[]).push(await fileToStorageOrDataUrl(item));
+          continue;
+        }
+        if (typeof item === 'string') {
+          (processedDocuments as string[]).push(item);
+        }
       }
     }
 

@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
+import { randomUUID } from 'crypto';
 import { prisma } from '@/lib/prisma';
+import { uploadFile } from '@/lib/storage';
 import { checkAdminOrModeratorAccess, badRequestResponse, safeJsonParse, serverErrorResponse } from '@/lib/api-utils';
 
 function collectFileInputs(formData: FormData, key: string): File[] {
@@ -16,6 +18,21 @@ function parseProductMetadata(specs?: string | null) {
     ageOrWeight: typeof parsed.ageOrWeight === 'string' ? parsed.ageOrWeight : null,
     documents: Array.isArray(parsed.documents) ? parsed.documents : [],
   };
+}
+
+async function fileToStorageOrDataUrl(file: File) {
+  const buffer = Buffer.from(await file.arrayBuffer());
+
+  if (process.env.AWS_S3_BUCKET || process.env.SUPABASE_URL) {
+    try {
+      return await uploadFile(buffer, file.name, file.type || 'application/octet-stream');
+    } catch (error) {
+      console.warn('File upload to external storage failed, storing as data URL instead:', error);
+    }
+  }
+
+  const base64 = buffer.toString('base64');
+  return `data:${file.type};base64,${base64}`;
 }
 
 function buildSpecsPayload(values: Record<string, any>) {
@@ -145,10 +162,7 @@ export async function POST(req: Request) {
             return badRequestResponse(`File ${file.name} is too large. Maximum 15MB allowed.`);
           }
 
-          const buffer = await file.arrayBuffer();
-          const base64 = Buffer.from(buffer).toString('base64');
-          const dataUrl = `data:${file.type};base64,${base64}`;
-          images.push(dataUrl);
+          images.push(await fileToStorageOrDataUrl(file));
         }
       }
 
@@ -167,10 +181,7 @@ export async function POST(req: Request) {
             return badRequestResponse(`File ${file.name} is too large. Maximum 15MB allowed.`);
           }
 
-          const buffer = await file.arrayBuffer();
-          const base64 = Buffer.from(buffer).toString('base64');
-          const dataUrl = `data:${file.type};base64,${base64}`;
-          videos.push(dataUrl);
+          videos.push(await fileToStorageOrDataUrl(file));
         }
       }
 
@@ -212,10 +223,7 @@ export async function POST(req: Request) {
             return badRequestResponse(`File ${file.name} is too large. Maximum 15MB allowed.`);
           }
 
-          const buffer = await file.arrayBuffer();
-          const base64 = Buffer.from(buffer).toString('base64');
-          const dataUrl = `data:${file.type};base64,${base64}`;
-          documents.push(dataUrl);
+          documents.push(await fileToStorageOrDataUrl(file));
         }
       }
     }
@@ -236,6 +244,7 @@ export async function POST(req: Request) {
 
     const product = await prisma.product.create({
       data: {
+        id: randomUUID(),
         name,
         description,
         price,
