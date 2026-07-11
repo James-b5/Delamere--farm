@@ -4,6 +4,10 @@ import { randomBytes } from 'crypto';
 import { checkAdminOrModeratorAccess, serverErrorResponse, badRequestResponse } from '@/lib/api-utils';
 import { type NextRequest } from 'next/server';
 
+function isValidUserRole(role: string) {
+  return ['USER', 'MODERATOR', 'ADMIN'].includes(role.toUpperCase());
+}
+
 export async function GET(req: NextRequest) {
   const user = await checkAdminOrModeratorAccess(req);
   if (!user) {
@@ -46,14 +50,25 @@ export async function POST(req: Request) {
   if (!admin) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
+
   try {
     const { name, email, role, isActive } = await req.json();
     if (!email || !role) {
       return badRequestResponse('Email and role are required');
     }
+
+    const normalizedRole = String(role).toUpperCase();
+    if (!isValidUserRole(normalizedRole)) {
+      return badRequestResponse('Role must be USER, MODERATOR, or ADMIN');
+    }
+
+    if (admin.role === 'MODERATOR' && normalizedRole === 'ADMIN') {
+      return NextResponse.json({ error: 'Moderators cannot create admin users' }, { status: 403 });
+    }
+
     const passwordHash = randomBytes(16).toString('hex');
     const newUser = await prisma.user.create({
-      data: { name, email, role, isActive: isActive ?? true, passwordHash },
+      data: { name, email, role: normalizedRole, isActive: isActive ?? true, passwordHash },
       select: { id: true, name: true, email: true, role: true, isActive: true },
     });
     return NextResponse.json(newUser, { status: 201 });

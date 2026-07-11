@@ -19,6 +19,6 @@ export async function authenticatedFetch(url: string, options: RequestInit = {})
   return fetch(url, {
     ...options,
     headers,
-    credentials: 'same-origin',
+    credentials: options.credentials ?? 'same-origin',
   });
 }

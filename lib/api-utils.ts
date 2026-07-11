@@ -206,8 +206,9 @@ export function safeJsonParse<T>(value: unknown, fallback: T): T {
 /**
  * Return server error response
  */
-export function serverErrorResponse(message: string = 'Internal Server Error', requestId?: string) {
+export function serverErrorResponse(message: string = 'Internal Server Error', requestId?: string, details?: string) {
   const payload: any = { error: message };
   if (requestId) payload.requestId = requestId;
+  if (details) payload.details = details;
   return NextResponse.json(payload, { status: 500 });
 }

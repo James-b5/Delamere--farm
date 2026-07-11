@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { authenticatedFetch } from '@/lib/fetch-helper';
 import toast from "react-hot-toast";
 import { useConfirm } from '@/components/ConfirmProvider';
 
@@ -38,8 +39,22 @@ export default function AdminMediaManager() {
     }
   }, [user, isAuthorized]);
 
+  async function parseErrorResponse(response: Response): Promise<string> {
+    const contentType = response.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      const body = await response.json().catch(() => null);
+      if (body && typeof body === 'object') {
+        if (typeof body.error === 'string' && body.error.trim()) return body.error;
+        if (typeof body.message === 'string' && body.message.trim()) return body.message;
+      }
+      return JSON.stringify(body) || response.statusText;
+    }
+    const text = await response.text().catch(() => '');
+    return text || `${response.status} ${response.statusText}`;
+  }
+
   async function load() {
-    const res = await fetch('/api/admin/media');
+    const res = await authenticatedFetch('/api/admin/media');
     const data = await res.json();
     setItems(data);
   }
@@ -73,23 +88,19 @@ export default function AdminMediaManager() {
     };
     setItems(prev => [tempItem, ...prev]);
 
-    const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
-    const postHeaders: Record<string, string> = {};
-    if (token) postHeaders['Authorization'] = `Bearer ${token}`;
-    const res = await fetch('/api/admin/media', { method: 'POST', body: fd, headers: postHeaders });
+    const res = await authenticatedFetch('/api/admin/media', { method: 'POST', body: fd });
     if (res.ok) {
       const created = await res.json();
-      // Replace temp item with server item
       setItems(prev => prev.map(i => i.id === tempId ? created : i));
-      setFile(null); setTitle(''); setDescription('');
-      // Revoke preview URL
+      setFile(null);
+      setTitle('');
+      setDescription('');
       URL.revokeObjectURL(previewUrl);
     } else {
-      // Remove temp preview
+      const errorText = await parseErrorResponse(res);
       setItems(prev => prev.filter(i => i.id !== tempId));
       URL.revokeObjectURL(previewUrl);
-      const err = await res.json().catch(()=>({ error: 'Upload failed' }));
-      toast.error(err?.error || 'Upload failed');
+      throw new Error(errorText || 'Upload failed');
     }
   }
 
@@ -100,11 +111,11 @@ export default function AdminMediaManager() {
     }
     const ok = await confirm('Delete this media item?');
     if (!ok) return;
-    const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
-    const delHeaders: Record<string, string> = {};
-    if (token) delHeaders['Authorization'] = `Bearer ${token}`;
-    const res = await fetch(`/api/admin/media?id=${id}`, { method: 'DELETE', headers: delHeaders });
-    if (res.ok) load(); else toast.error('Delete failed');
+    const res = await authenticatedFetch(`/api/admin/media?id=${id}`, { method: 'DELETE' });
+    if (res.ok) load(); else {
+      const errorText = await parseErrorResponse(res).catch(() => 'Delete failed');
+      toast.error(errorText || 'Delete failed');
+    }
   }
 
   function startEdit(item: MediaItem) {

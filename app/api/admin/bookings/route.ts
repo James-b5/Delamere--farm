@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { checkAdminOrModeratorAccess, badRequestResponse, serverErrorResponse } from '@/lib/api-utils';
 import fs from 'fs';
 import path from 'path';
+import { randomUUID } from 'crypto';
 
 function normalizeBooking(booking: any) {
   const { User, ...rest } = booking;
@@ -41,6 +42,43 @@ export async function GET(req: Request) {
   } catch (error) {
     console.error('Failed to fetch bookings:', error);
     return serverErrorResponse('Failed to fetch bookings');
+  }
+}
+
+// POST: Create a booking
+export async function POST(req: Request) {
+  const user = await checkAdminOrModeratorAccess(req);
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const payload = await req.json();
+    const { name, email, phone, bookingDate, numberOfPeople, notes, status, userId } = payload;
+
+    if (!name || !email || !bookingDate) {
+      return badRequestResponse('Name, email, and booking date are required');
+    }
+
+    const created = await prisma.booking.create({
+      data: {
+        id: randomUUID(),
+        userId: userId ?? null,
+        name,
+        email,
+        phone: phone ?? null,
+        bookingDate: new Date(bookingDate),
+        numberOfPeople: Number(numberOfPeople ?? 1),
+        notes: notes ?? null,
+        status: status ?? 'PENDING',
+      },
+      include: { User: true },
+    });
+
+    return NextResponse.json(normalizeBooking(created), { status: 201 });
+  } catch (error) {
+    console.error('Failed to create booking:', error);
+    return serverErrorResponse('Failed to create booking');
   }
 }
 

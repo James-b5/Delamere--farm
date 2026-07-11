@@ -1,6 +1,44 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { checkAdminOrModeratorAccess, badRequestResponse, serverErrorResponse } from '@/lib/api-utils';
+import { checkAdminOrModeratorAccess, badRequestResponse, safeJsonParse, serverErrorResponse } from '@/lib/api-utils';
+
+function collectFileInputs(formData: FormData, key: string): File[] {
+  return formData.getAll(key).filter((item): item is File => item instanceof File);
+}
+
+function parseProductMetadata(specs?: string | null) {
+  const parsed = safeJsonParse<Record<string, any>>(specs, {});
+
+  return {
+    category: typeof parsed.category === 'string' ? parsed.category : null,
+    breed: typeof parsed.breed === 'string' ? parsed.breed : null,
+    healthStatus: typeof parsed.healthStatus === 'string' ? parsed.healthStatus : null,
+    ageOrWeight: typeof parsed.ageOrWeight === 'string' ? parsed.ageOrWeight : null,
+    documents: Array.isArray(parsed.documents) ? parsed.documents : [],
+  };
+}
+
+function buildSpecsPayload(values: Record<string, any>) {
+  const payload: Record<string, any> = {};
+
+  if (typeof values.category === 'string' && values.category.trim()) {
+    payload.category = values.category.trim();
+  }
+  if (typeof values.breed === 'string' && values.breed.trim()) {
+    payload.breed = values.breed.trim();
+  }
+  if (typeof values.healthStatus === 'string' && values.healthStatus.trim()) {
+    payload.healthStatus = values.healthStatus.trim();
+  }
+  if (typeof values.ageOrWeight === 'string' && values.ageOrWeight.trim()) {
+    payload.ageOrWeight = values.ageOrWeight.trim();
+  }
+  if (Array.isArray(values.documents)) {
+    payload.documents = values.documents;
+  }
+
+  return JSON.stringify(payload);
+}
 
 // GET: List products
 export async function GET(req: Request) {
@@ -19,25 +57,25 @@ export async function GET(req: Request) {
         description: true,
         price: true,
         stock: true,
-        category: true,
-        breed: true,
-        healthStatus: true,
-        ageOrWeight: true,
         images: true,
         videos: true,
-        documents: true,
+        specs: true,
         createdAt: true,
         updatedAt: true,
       },
     });
 
-    // Parse JSON strings back to arrays
-    const formattedProducts = products.map((p: any) => ({
-      ...p,
-      images: p.images ? JSON.parse(p.images) : [],
-      videos: p.videos ? JSON.parse(p.videos) : [],
-      documents: p.documents ? JSON.parse(p.documents) : [],
-    }));
+    const formattedProducts = products.map((p: any) => {
+      const metadata = parseProductMetadata(p.specs);
+
+      return {
+        ...p,
+        ...metadata,
+        images: p.images ? JSON.parse(p.images) : [],
+        videos: p.videos ? JSON.parse(p.videos) : [],
+        documents: metadata.documents ?? [],
+      };
+    });
 
     return NextResponse.json(formattedProducts);
   } catch (error) {
@@ -92,9 +130,8 @@ export async function POST(req: Request) {
       healthStatus = (formData.get('healthStatus') as string) || null;
       ageOrWeight = (formData.get('ageOrWeight') as string) || null;
 
-      // Process image files
-      const imageFiles = formData.getAll('images') as File[];
-      if (imageFiles && imageFiles.length > 0) {
+      const imageFiles = collectFileInputs(formData, 'images');
+      if (imageFiles.length > 0) {
         if (imageFiles.length > 10) {
           return badRequestResponse('Maximum 10 images allowed');
         }
@@ -115,9 +152,8 @@ export async function POST(req: Request) {
         }
       }
 
-      // Process video files
-      const videoFiles = formData.getAll('videoFiles') as File[];
-      if (videoFiles && videoFiles.length > 0) {
+      const videoFiles = collectFileInputs(formData, 'videoFiles');
+      if (videoFiles.length > 0) {
         if (videoFiles.length > 5) {
           return badRequestResponse('Maximum 5 video files allowed');
         }
@@ -138,7 +174,6 @@ export async function POST(req: Request) {
         }
       }
 
-      // Process video URLs
       formData.getAll('videos').forEach((video) => {
         const url = video.toString().trim();
         if (url) {
@@ -155,9 +190,8 @@ export async function POST(req: Request) {
         return badRequestResponse('Maximum 8 videos allowed (files + URLs)');
       }
 
-      // Process documents
-      const documentFiles = formData.getAll('documents') as File[];
-      if (documentFiles && documentFiles.length > 0) {
+      const documentFiles = collectFileInputs(formData, 'documents');
+      if (documentFiles.length > 0) {
         if (documentFiles.length > 5) {
           return badRequestResponse('Maximum 5 documents allowed');
         }
@@ -186,7 +220,6 @@ export async function POST(req: Request) {
       }
     }
 
-    // Basic validation (name, description, price, stock)
     if (!name || !description || price === undefined || stock === undefined || isNaN(price) || isNaN(stock)) {
       return badRequestResponse('Missing or invalid required fields: name, description, price, stock');
     }
@@ -199,10 +232,8 @@ export async function POST(req: Request) {
       return badRequestResponse('Stock cannot be negative');
     }
 
-    // Combine all videos (files + URLs)
     const allVideos = [...videos];
 
-    // Create product
     const product = await prisma.product.create({
       data: {
         name,
@@ -211,25 +242,31 @@ export async function POST(req: Request) {
         stock,
         images: JSON.stringify(images),
         videos: JSON.stringify(allVideos),
-        category: category,
-        breed: breed,
-        healthStatus: healthStatus,
-        ageOrWeight: ageOrWeight,
-        documents: JSON.stringify(documents),
+        specs: buildSpecsPayload({
+          category,
+          breed,
+          healthStatus,
+          ageOrWeight,
+          documents,
+        }),
       },
     });
+
+    const metadata = parseProductMetadata(product.specs);
 
     return NextResponse.json(
       {
         ...product,
-        images: JSON.parse(product.images || '[]'),
-        videos: JSON.parse(product.videos || '[]'),
-        documents: JSON.parse(product.documents || '[]'),
+        ...metadata,
+        images: product.images ? JSON.parse(product.images) : [],
+        videos: product.videos ? JSON.parse(product.videos) : [],
+        documents: metadata.documents ?? [],
       },
       { status: 201 }
     );
   } catch (error) {
+    const details = error instanceof Error ? `${error.message}${error.stack ? '\n' + error.stack : ''}` : String(error);
     console.error('Failed to create product:', error);
-    return serverErrorResponse('Failed to create product');
+    return serverErrorResponse('Failed to create product', undefined, process.env.NODE_ENV !== 'production' ? details : undefined);
   }
 }

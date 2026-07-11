@@ -36,7 +36,8 @@ export default function ProductUploadForm() {
   });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const videoInputRef = useRef<HTMLInputElement>(null);
+  const videoFileInputRef = useRef<HTMLInputElement>(null);
+  const videoUrlInputRef = useRef<HTMLInputElement>(null);
   const documentInputRef = useRef<HTMLInputElement>(null);
   const dragOverRef = useRef<HTMLDivElement>(null);
 
@@ -174,7 +175,7 @@ export default function ProductUploadForm() {
     });
 
     setUploadedVideos([...uploadedVideos, ...validFiles]);
-    if (videoInputRef.current) videoInputRef.current.value = '';
+    if (videoFileInputRef.current) videoFileInputRef.current.value = '';
   };
 
   const handleDocumentChange = (files: FileList | null) => {
@@ -279,8 +280,31 @@ export default function ProductUploadForm() {
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to create product');
+        let errorMessage = 'Failed to create product';
+        const contentType = response.headers.get('content-type') ?? '';
+
+        if (contentType.includes('application/json')) {
+          const errorBody = await response.json().catch(() => null);
+          if (errorBody?.error) {
+            errorMessage = errorBody.error;
+          } else if (typeof errorBody === 'string') {
+            errorMessage = errorBody;
+          }
+        } else {
+          const errorText = await response.text().catch(() => '');
+          if (errorText) {
+            errorMessage = errorText;
+          }
+        }
+
+        const detailedError = `Product upload failed: ${response.status} ${response.statusText} - ${errorMessage}`;
+        console.error('Product upload response error:', {
+          status: response.status,
+          statusText: response.statusText,
+          contentType,
+          errorMessage,
+        });
+        throw new Error(errorMessage || detailedError);
       }
 
       const created = await response.json();
@@ -563,7 +587,7 @@ export default function ProductUploadForm() {
                     <p className="text-xs text-gray-600 mb-4">MP4, WebM, OGG, or MOV • Max 15MB each • Max 5 videos</p>
                     <button
                       type="button"
-                      onClick={() => videoInputRef.current?.click()}
+                      onClick={() => videoFileInputRef.current?.click()}
                       aria-label="Select video files"
                       disabled={isSubmitting}
                     >
@@ -571,7 +595,7 @@ export default function ProductUploadForm() {
                       Select Videos
                     </button>
                     <input
-                      ref={videoInputRef}
+                      ref={videoFileInputRef}
                       type="file"
                       accept="video/mp4,video/webm,video/ogg,video/quicktime"
                       multiple
@@ -620,7 +644,7 @@ export default function ProductUploadForm() {
                   <h3 className="text-lg font-semibold text-gray-800 mb-3">Add Video URLs</h3>
                   <div className="flex gap-2 mb-2">
                     <input
-                        ref={videoInputRef}
+                        ref={videoUrlInputRef}
                       type="url"
                       placeholder="https://youtube.com/watch?v=..."
                       value={videoInput}

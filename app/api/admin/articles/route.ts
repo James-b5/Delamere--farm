@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from '@/lib/prisma';
-import { checkAdminAccess, badRequestResponse, serverErrorResponse } from '@/lib/api-utils';
+import { checkAdminOrModeratorAccess, badRequestResponse, serverErrorResponse } from '@/lib/api-utils';
 import { syncTagsForPost } from '@/lib/article-utils';
 
 function slugify(s: string) {
@@ -18,7 +18,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const user = await checkAdminAccess(request);
+    const user = await checkAdminOrModeratorAccess(request);
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const body = await request.json();
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
         excerpt: body.excerpt || null,
         content: body.content || body.excerpt || '',
         author: user.id,
-        published: body.published ?? true,
+        published: body.published ?? (user.role === 'MODERATOR' ? false : true),
         publishedAt: body.published ? new Date() : null,
         coverImage: body.imageUrl || null,
       },

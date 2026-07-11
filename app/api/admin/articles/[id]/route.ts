@@ -1,11 +1,12 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { checkAdminAccess, serverErrorResponse } from '@/lib/api-utils';
+import { checkAdminOrModeratorAccess, serverErrorResponse } from '@/lib/api-utils';
 
 // Use broader types for handler params to satisfy Next.js internal type checks
 export async function PATCH(request: Request | NextRequest, context: any) {
   try {
-    const user = await checkAdminAccess(request as Request);
+    const user = await checkAdminOrModeratorAccess(request as Request);
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     const id = (context?.params && context.params.id) || (context?.params && (await context.params)?.id);
     const body = await (request as Request).json();
 
@@ -38,7 +39,8 @@ export async function PATCH(request: Request | NextRequest, context: any) {
 }
 export async function GET(request: Request | NextRequest, context: any) {
   try {
-    await checkAdminAccess(request as Request);
+    const user = await checkAdminOrModeratorAccess(request as Request);
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     const id = context?.params?.id ?? ((context?.params && (await context.params))?.id) ?? null;
     if (!id) return new NextResponse('Bad request', { status: 400 });
     const post = await prisma.blogPost.findUnique({ where: { id } });
@@ -52,7 +54,8 @@ export async function GET(request: Request | NextRequest, context: any) {
 
 export async function DELETE(request: Request | NextRequest, context: any) {
   try {
-    await checkAdminAccess(request as Request);
+    const user = await checkAdminOrModeratorAccess(request as Request);
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     const id = context?.params?.id ?? ((context?.params && (await context.params))?.id) ?? null;
     if (!id) return new NextResponse('Bad request', { status: 400 });
     await prisma.blogPost.delete({ where: { id } });
