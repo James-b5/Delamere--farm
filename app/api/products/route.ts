@@ -65,16 +65,18 @@ export async function GET(req: Request) {
       };
     });
 
-    const responsePayload: any = { products: formatted };
     if (debugEnabled) {
-      responsePayload.debug = {
-        supabaseUrl,
-        supabaseBucket,
-        supabaseKeySet,
-      };
+      return NextResponse.json({
+        products: formatted,
+        debug: {
+          supabaseUrl,
+          supabaseBucket,
+          supabaseKeySet,
+        },
+      });
     }
 
-    return NextResponse.json(responsePayload);
+    return NextResponse.json(formatted);
   } catch (error) {
     console.error('Failed to fetch public products:', error);
     return serverErrorResponse('Failed to fetch products');
