@@ -16,7 +16,7 @@ async function saveFile(file: File, folder: string): Promise<string> {
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
-  if (process.env.AWS_S3_BUCKET || process.env.SUPABASE_URL) {
+  if (process.env.SUPABASE_URL) {
     try {
       return await uploadFile(buffer, file.name, file.type || 'application/octet-stream');
     } catch (e) {
@@ -27,7 +27,7 @@ async function saveFile(file: File, folder: string): Promise<string> {
 
   if (process.env.NODE_ENV === 'production') {
     throw new Error(
-      'File upload failed because no writable local storage is available in production. Configure AWS_S3_BUCKET and valid S3 credentials to enable uploads.'
+      'File upload failed because no writable local storage is available in production. Configure Supabase storage with SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, and SUPABASE_STORAGE_BUCKET.'
     );
   }
 

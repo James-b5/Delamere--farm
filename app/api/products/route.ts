@@ -1,11 +1,23 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { getFallbackStoreSnapshot, prisma } from '@/lib/prisma';
 import { withPrismaFallback } from '@/lib/prisma-safe';
 import { safeJsonParse, serverErrorResponse } from '@/lib/api-utils';
 
 // Public GET: List all products with their media
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    const url = new URL(req.url);
+    const debugEnabled = url.searchParams.get('debug') === 'true';
+
+    const supabaseUrl = Boolean(process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL);
+    const supabaseBucket = Boolean(process.env.SUPABASE_STORAGE_BUCKET || process.env.SUPABASE_BUCKET);
+    const supabaseKeySet = Boolean(
+      process.env.SUPABASE_SERVICE_ROLE_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY ||
+      process.env.SUPABASE_ANON_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    );
+
     const products = await withPrismaFallback(
       () => prisma.product.findMany({
         where: { deleted: false },
@@ -16,7 +28,6 @@ export async function GET() {
           description: true,
           price: true,
           stock: true,
-          category: true,
           images: true,
           videos: true,
           specs: true,
@@ -28,7 +39,15 @@ export async function GET() {
       'fetch public products',
     );
 
-    const formatted = (products as Array<Record<string, any>>).map((p: any) => {
+    const fallbackProducts = Array.isArray((getFallbackStoreSnapshot() as any)?.product)
+      ? (getFallbackStoreSnapshot() as any).product.filter((item: any) => item && item.deleted !== true)
+      : [];
+
+    const sourceProducts = Array.isArray(products) && products.length > 0
+      ? products
+      : fallbackProducts;
+
+    const formatted = (sourceProducts as Array<Record<string, any>>).map((p: any) => {
       const images = safeJsonParse<string[]>(p.images, []);
       const normalizedImages = (images.length ? images : []).map((src) => {
         if (!src) return '/images/product-placeholder.svg';
@@ -46,7 +65,16 @@ export async function GET() {
       };
     });
 
-    return NextResponse.json(formatted);
+    const responsePayload: any = { products: formatted };
+    if (debugEnabled) {
+      responsePayload.debug = {
+        supabaseUrl,
+        supabaseBucket,
+        supabaseKeySet,
+      };
+    }
+
+    return NextResponse.json(responsePayload);
   } catch (error) {
     console.error('Failed to fetch public products:', error);
     return serverErrorResponse('Failed to fetch products');

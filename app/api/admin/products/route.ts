@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { randomUUID } from 'crypto';
 import { prisma } from '@/lib/prisma';
-import { uploadFile } from '@/lib/storage';
+import { isSupabaseConfigured, uploadFile } from '@/lib/storage';
 import { checkAdminOrModeratorAccess, badRequestResponse, safeJsonParse, serverErrorResponse } from '@/lib/api-utils';
 
 function collectFileInputs(formData: FormData, key: string): File[] {
@@ -23,7 +23,7 @@ function parseProductMetadata(specs?: string | null) {
 async function fileToStorageOrDataUrl(file: File) {
   const buffer = Buffer.from(await file.arrayBuffer());
 
-  if (process.env.AWS_S3_BUCKET || process.env.SUPABASE_URL) {
+  if (isSupabaseConfigured()) {
     try {
       return await uploadFile(buffer, file.name, file.type || 'application/octet-stream');
     } catch (error) {

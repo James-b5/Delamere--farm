@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { getFallbackStoreSnapshot, prisma } from '@/lib/prisma';
 import { verifyPassword, createToken, verifyToken } from '@/lib/auth';
+
+function normalizeEmail(email?: string) {
+  return (email || '').trim().toLowerCase();
+}
 
 function logLoginDebug(request: Request, payload: any) {
   try {
@@ -49,19 +53,26 @@ export async function POST(request: Request) {
     console.log('login-route-payload', payload);
     logLoginDebug(request, payload);
     const { email, password } = payload;
+    const normalizedEmail = normalizeEmail(email);
 
     // Validation
-    if (!email || !password) {
+    if (!normalizedEmail || !password) {
       return NextResponse.json(
         { error: 'Email and password are required', payload },
         { status: 400 }
       );
     }
 
-    // Find user
-    const user = await prisma.user.findUnique({
-      where: { email },
-    });
+    const fallbackStore = getFallbackStoreSnapshot();
+    const fallbackUser = Array.isArray(fallbackStore.user)
+      ? fallbackStore.user.find((entry: any) => normalizeEmail(entry.email) === normalizedEmail) ?? null
+      : null;
+
+    let user = fallbackUser
+      ? { ...fallbackUser }
+      : await prisma.user.findUnique({
+          where: { email: normalizedEmail },
+        });
 
     if (!user) {
       return NextResponse.json(
@@ -70,8 +81,24 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check password
-    const passwordMatch = await verifyPassword(password, user.passwordHash || '');
+    let passwordMatch = fallbackUser
+      ? await verifyPassword(password, fallbackUser.passwordHash || '')
+      : await verifyPassword(password, user.passwordHash || '');
+
+    if (!passwordMatch && fallbackUser) {
+      const databaseUser = await prisma.user.findUnique({
+        where: { email: normalizedEmail },
+      });
+      if (databaseUser?.passwordHash) {
+        const databasePasswordMatch = await verifyPassword(password, databaseUser.passwordHash);
+        if (databasePasswordMatch) {
+          user = databaseUser;
+          passwordMatch = databasePasswordMatch;
+        }
+      }
+    }
+
+    console.log('[auth/login] resolved user', { email: normalizedEmail, fallbackUser: !!fallbackUser, userId: user?.id, passwordMatch });
     
     if (!passwordMatch) {
       return NextResponse.json(

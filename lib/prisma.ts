@@ -730,6 +730,7 @@ function createPrismaProxy(target: any) {
 }
 
 let prismaInstance: any;
+let prismaInitError: any = null;
 const fallbackStore = createFallbackStore();
 const fallbackPrisma = createFallbackPrismaProxy(fallbackStore);
 
@@ -739,11 +740,8 @@ try {
     globalForPrisma.prisma = prismaInstance;
   }
 } catch (e: any) {
-  if (isProduction) {
-    throw e;
-  }
-
-  console.warn('Prisma failed to initialize; using a local fallback store so the backend keeps working:', e.message || e);
+  prismaInitError = e;
+  console.warn('Prisma failed to initialize; using a local fallback store so the backend keeps working:', e?.message || e);
   prismaInstance = fallbackPrisma;
   if (!globalForPrisma.prisma) {
     globalForPrisma.prisma = prismaInstance;
@@ -752,3 +750,8 @@ try {
 
 export const prisma: any = prismaInstance === fallbackPrisma ? fallbackPrisma : createPrismaProxy(prismaInstance);
 export const isPrismaFallback = prismaInstance === fallbackPrisma;
+export const prismaInitFailure = prismaInitError;
+
+export function getFallbackStoreSnapshot() {
+  return createFallbackStore();
+}

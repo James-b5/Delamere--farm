@@ -6,7 +6,7 @@ import { checkAdminOrModeratorAccess, badRequestResponse, safeJsonParse, serverE
 async function fileToStorageOrDataUrl(file: File) {
   const buffer = Buffer.from(await file.arrayBuffer());
 
-  if (process.env.AWS_S3_BUCKET || process.env.SUPABASE_URL) {
+  if (process.env.SUPABASE_URL) {
     try {
       return await uploadFile(buffer, file.name, file.type || 'application/octet-stream');
     } catch (error) {

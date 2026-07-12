@@ -362,7 +362,7 @@
       "name": "Admin User",
       "email": "admin@delamerefarm.co.ke",
       "emailVerified": true,
-      "passwordHash": "$2a$10$mwo9sor2Jes42jXK8z3oqudjyy3AdOAecdsp4pu1PTXqD1cswJPKe",
+      "passwordHash": "$2a$10$2mRrI9HtBKsfrvNwgQXYEu9kFHNwTe39QjGMR5bg5qsK1/v7fa.mW",
       "role": "ADMIN",
       "permissions": [],
       "isActive": true,

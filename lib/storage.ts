@@ -1,18 +1,29 @@
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { randomBytes } from 'crypto';
 import path from 'path';
 
-const supabaseUrl = process.env.SUPABASE_URL?.replace(/\/+$/, '');
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
-const supabaseBucket = process.env.SUPABASE_STORAGE_BUCKET || process.env.SUPABASE_BUCKET;
+const normalizeEnv = (value?: string | null) => {
+  if (!value) return null;
+  let trimmed = value.trim();
+  if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
+    trimmed = trimmed.slice(1, -1).trim();
+  }
+  if (!trimmed || trimmed.toLowerCase() === 'false' || trimmed.toLowerCase() === 'null' || trimmed.toLowerCase() === 'undefined') {
+    return null;
+  }
+  return trimmed;
+};
 
-const s3 = new S3Client({
-  region: process.env.AWS_REGION || 'us-east-1',
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
-  },
-});
+const isPlaceholderValue = (value: string | null | undefined) => {
+  if (!value) return true;
+  const normalized = value.toLowerCase();
+  return normalized.includes('your-') || normalized.includes('placeholder') || normalized.includes('changeme') || normalized.includes('example') || normalized.includes('replace-with');
+};
+
+const supabaseUrl = normalizeEnv(process.env.SUPABASE_URL)?.replace(/\/+$/, '');
+const supabaseKey = normalizeEnv(process.env.SUPABASE_SERVICE_ROLE_KEY);
+const supabaseBucket = normalizeEnv(process.env.SUPABASE_STORAGE_BUCKET || process.env.SUPABASE_BUCKET);
+
+export const isSupabaseConfigured = () => Boolean(supabaseUrl && supabaseKey && supabaseBucket && !isPlaceholderValue(supabaseUrl) && !isPlaceholderValue(supabaseKey) && !isPlaceholderValue(supabaseBucket));
 
 function getObjectKey(originalName: string) {
   const ext = path.extname(originalName) || '';
@@ -20,20 +31,25 @@ function getObjectKey(originalName: string) {
 }
 
 async function uploadFileToSupabase(buffer: Buffer, originalName: string, mimeType: string): Promise<string> {
-  if (!supabaseUrl || !supabaseKey || !supabaseBucket) {
+  if (!isSupabaseConfigured()) {
     throw new Error('Supabase storage is not fully configured. Set SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, and SUPABASE_STORAGE_BUCKET.');
   }
 
   const key = getObjectKey(originalName);
   const url = `${supabaseUrl}/storage/v1/object/${supabaseBucket}/${encodeURIComponent(key)}`;
 
+  const headers: Record<string, string> = {
+    Authorization: `Bearer ${supabaseKey}`,
+    'Content-Type': mimeType,
+    'x-upsert': 'true',
+  };
+  if (supabaseKey) {
+    headers.apikey = supabaseKey;
+  }
+
   const response = await fetch(url, {
     method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${supabaseKey}`,
-      'Content-Type': mimeType,
-      'x-upsert': 'true',
-    },
+    headers,
     body: new Uint8Array(buffer),
   });
 
@@ -45,32 +61,10 @@ async function uploadFileToSupabase(buffer: Buffer, originalName: string, mimeTy
   return `${supabaseUrl}/storage/v1/object/public/${supabaseBucket}/${encodeURIComponent(key)}`;
 }
 
-async function uploadFileToS3(buffer: Buffer, originalName: string, mimeType: string): Promise<string> {
-  const ext = path.extname(originalName);
-  const key = `${randomBytes(16).toString('hex')}${ext}`;
-  const bucket = process.env.AWS_S3_BUCKET;
-  if (!bucket) throw new Error('AWS_S3_BUCKET not set');
-
-  const cmd = new PutObjectCommand({
-    Bucket: bucket,
-    Key: key,
-    Body: buffer,
-    ContentType: mimeType,
-    ACL: 'public-read',
-  });
-
-  await s3.send(cmd);
-  return `https://${bucket}.s3.amazonaws.com/${key}`;
-}
-
 export async function uploadFile(buffer: Buffer, originalName: string, mimeType: string): Promise<string> {
-  if (supabaseUrl && supabaseKey && supabaseBucket) {
+  if (isSupabaseConfigured()) {
     return await uploadFileToSupabase(buffer, originalName, mimeType);
   }
 
-  if (process.env.AWS_S3_BUCKET) {
-    return await uploadFileToS3(buffer, originalName, mimeType);
-  }
-
-  throw new Error('No external storage configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY and SUPABASE_STORAGE_BUCKET, or AWS_S3_BUCKET and AWS credentials.');
+  throw new Error('No Supabase storage configured. Set SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, and SUPABASE_STORAGE_BUCKET.');
 }
